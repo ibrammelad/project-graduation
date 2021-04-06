@@ -1,19 +1,15 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/////////////////////////// user routes  ////////////////////////////////////////////////
+Route::apiResource('users',\App\Http\Controllers\API\User\UserController::class)->except('store' , 'destroy');
+Route::patch('/users/{id}/showEmail',[\App\Http\Controllers\API\User\ManageUserController::class , 'showEmail']);
+Route::patch('/users/{id}/showName',[\App\Http\Controllers\API\User\ManageUserController::class , 'showName']);
+Route::patch('/users/{id}/showNearly',[\App\Http\Controllers\API\User\ManageUserController::class , 'showNearly']);
+Route::patch('/users/{id}/HaveCovid19',[\App\Http\Controllers\API\User\ManageUserController::class , 'HaveCovid19']);
+Route::patch('/users/{id}/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
+/////////////////////////// end user routes  /////////////////////////////////////////
+
+//Route::apiResource('doctors'  , \App\Http\Controllers\API\User\DoctorController::class);
