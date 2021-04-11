@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\LocationPerson_interact;
 use App\Models\LocationPersonInteract;
 use App\Models\User;
+use Faker\Provider\ar_JO\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LocationPersonInteractFactory extends Factory
@@ -30,8 +31,8 @@ class LocationPersonInteractFactory extends Factory
             'user_2' => function(){
                 return User::all()->random();
             },
-            'lang' =>   $this->faker->numberBetween('30.753989', '31.2357'),
-            'lat' => $this->faker->numberBetween('28.091889','30.0444'),
+            'lang'=> $this->faker->latitude(30.753989, 31.2357),
+            'lat' =>$this->faker->longitude(28.091889, 30.0444),
         ];
     }
 }

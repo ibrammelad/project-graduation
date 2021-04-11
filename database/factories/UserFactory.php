@@ -34,7 +34,6 @@ class UserFactory extends Factory
             'phone' => $faker->phoneNumber,
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // 123456
-            'token'=>Str::random(14),
             'remember_token' => Str::random(10),
             'status' => $this->faker->numberBetween(0,1),
             'image' => '/images/lancera.PNG',
