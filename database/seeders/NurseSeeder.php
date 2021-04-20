@@ -14,6 +14,6 @@ class NurseSeeder extends Seeder
      */
     public function run()
     {
-        Nurse::factory(70)->create();
+        Nurse::factory(3)->create();
     }
 }

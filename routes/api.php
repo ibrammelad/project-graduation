@@ -17,18 +17,33 @@ Route::prefix('users' )->group(function (){
 //////////////////////    end       ////////////////////////////////////////
 
 /////////////////////////// user routes  ////////////////////////////////////////////////
-Route::group(['middleware'=>'auth:sanctum'] , function (){
-    Route::get('/users/logout' , [\App\Http\Controllers\API\Regesiter\LoginController::class , 'logout']);
-    Route::apiResource('users',\App\Http\Controllers\API\User\UserController::class)->except('store' , 'destroy');
-    Route::patch('/users/{id}/showEmail',[\App\Http\Controllers\API\User\ManageUserController::class , 'showEmail']);
-    Route::patch('/users/{id}/showName',[\App\Http\Controllers\API\User\ManageUserController::class , 'showName']);
-    Route::patch('/users/{id}/showNearly',[\App\Http\Controllers\API\User\ManageUserController::class , 'showNearly']);
-    Route::patch('/users/{id}/HaveCovid19',[\App\Http\Controllers\API\User\ManageUserController::class , 'HaveCovid19']);
-    Route::patch('/users/{id}/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
+Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
 
+    ///////////////////// logout /////////////////////
+    Route::get('/logout' , [\App\Http\Controllers\API\Regesiter\LoginController::class , 'logout']);
+    ////////////////////////// end logout //////////////////////
+
+    /// ////////////////// manage Controller /////////////////////////////////////////
+    Route::patch('/{id}/showEmail',[\App\Http\Controllers\API\User\ManageUserController::class , 'showEmail']);
+    Route::patch('/{id}/showName',[\App\Http\Controllers\API\User\ManageUserController::class , 'showName']);
+    Route::patch('/{id}/showNearly',[\App\Http\Controllers\API\User\ManageUserController::class , 'showNearly']);
+    Route::patch('/{id}/HaveCovid19',[\App\Http\Controllers\API\User\ManageUserController::class , 'HaveCovid19']);
+    Route::patch('/{id}/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
+    //////////////////////////////// end manage Controllers /////////////////////////
+
+    /////////////////////// doctor Controller ///////////////////////////////
+    Route::post('/{id}/makeMeDoctor' , [\App\Http\Controllers\API\User\DoctorController::class , 'makeMeDoctor']) ;
+    Route::post('/{id}/makeMeNurse' , [\App\Http\Controllers\API\User\NurseController::class , 'makeMeNurse']) ;
+    ////////////////////////  end doctor Controlller /////////////////////////
 });
 
 
-/////////////////////////// end user routes  /////////////////////////////////////////
+Route::group(['middleware'=>'auth:sanctum' ] , function () {
 
-//Route::apiResource('doctors'  , \App\Http\Controllers\API\User\DoctorController::class);
+///////////// ////////  user controllers  ///////////////////////
+    Route::apiResource('users', \App\Http\Controllers\API\User\UserController::class)->except('store', 'destroy');
+    Route::get('doctors', [\App\Http\Controllers\API\User\DoctorController::class,'allDoctors']);
+    Route::get('nurses', [\App\Http\Controllers\API\User\NurseController::class,'allNurses']);
+    Route::apiResource('posts', \App\Http\Controllers\API\Post\PostController::class);
+///////////////////////// end user controller /////////////////////////////
+});

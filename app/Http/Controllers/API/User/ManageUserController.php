@@ -4,17 +4,17 @@ namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Traits\apiResponse;
 use Illuminate\Http\Request;
 
 class ManageUserController extends Controller
 {
-    use  apiResponse;
     public function showEmail(Request $request ,$id)
     {
         $rules = [
             'showMail' => 'required|in:0,1'
         ];
+        if (User::assurence($id)->first() == null)
+            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
         $this->validate($request, $rules);
         $user = User::findOrFail($id);
         $user->update(['showMail' => $request->showMail]);
@@ -25,6 +25,9 @@ class ManageUserController extends Controller
         $rules = [
             'showName' => 'required|in:0,1'
         ];
+        if (User::assurence($id)->first() == null)
+            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
+
         $this->validate($request, $rules);
         $user = User::findOrFail($id);
         $user->update(['showName' => $request->showName]);
@@ -35,6 +38,9 @@ class ManageUserController extends Controller
         $rules = [
             'showNearly' => 'required|in:0,1'
         ];
+        if (User::assurence($id)->first() == null)
+            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
+
         $this->validate($request, $rules);
         $user = User::findOrFail($id);
         $user->update(['showNearly' => $request->showNearly]);
@@ -45,6 +51,9 @@ class ManageUserController extends Controller
         $rules = [
             'HaveCovid19' => 'required|in:0,1'
         ];
+        if (User::assurence($id)->first() == null)
+            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
+
         $this->validate($request, $rules);
         $user = User::findOrFail($id);
         $user->update(['HaveCovid19' => $request->HaveCovid19]);
@@ -55,6 +64,9 @@ class ManageUserController extends Controller
         $rules = [
             'HelpUsers' => 'required|in:0,1'
         ];
+        if (User::assurence($id)->first() == null)
+            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
+
         $this->validate($request, $rules);
         $user = User::findOrFail($id);
         $user->update(['HelpUsers' => $request->HelpUsers]);

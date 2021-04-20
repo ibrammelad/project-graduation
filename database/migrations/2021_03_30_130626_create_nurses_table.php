@@ -20,6 +20,10 @@ class CreateNursesTable extends Migration
             $table->string('qualifications');
             $table->string('from');
             $table->string('to');
+            $table->tinyInteger('status');
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

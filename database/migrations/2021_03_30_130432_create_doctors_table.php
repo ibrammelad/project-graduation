@@ -22,6 +22,10 @@ class CreateDoctorsTable extends Migration
             $table->double('lat');
             $table->string('from');
             $table->string('to');
+            $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

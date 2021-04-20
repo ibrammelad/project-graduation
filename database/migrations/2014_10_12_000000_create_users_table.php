@@ -27,14 +27,10 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('showNearly')->default(1);
             $table->tinyInteger('HaveCovid19')->default(0);
             $table->tinyInteger('HelpUsers')->default(1);
-            $table->unsignedBigInteger('doctor_details_id')->nullable();
-            $table->unsignedBigInteger('nurse_details_id')->nullable();
+
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-//            $table->foreign('doctor_details_id')->on('doctors')->references('id')->onDelete('cascade');
-//            $table->foreign('nurse_details_id')->on('nurses')->references('id')->onDelete('cascade');
 
 
         });

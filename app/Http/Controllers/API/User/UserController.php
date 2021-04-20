@@ -4,14 +4,11 @@ namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Traits\apiResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    use apiResponse;
 
     public function index()
     {
@@ -27,31 +24,27 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            if (User::assurence($id)->first() == null)
+                return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
-        if ($this->assurence($id)->first() == null)
-            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ' , 404);
-        $this->validate($request, $this->validUpdate($id));
-        $user = User::findOrFail($id);
-        $user->fill($request->all());
-        $user->update();
-        return $this->showOne($user);
+            $this->validate($request, User::validUpdate($id));
+            $user = User::findOrFail($id);
+            $user->fill($request->all());
+
+            DB::beginTransaction();
+            $user->update();
+            User::assurence($id)->first()->update(['name' => $request->name]);
+            DB::commit();
+            return $this->showOne($user);
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return $this->errorResponse('some error occur' , 404);
+        }
     }
 
-    public function validUpdate($id)
-    {
-        return  [
-            'name' => 'required|min:3|max:50',
-            'email' => 'required|email|'.Rule::unique('users', 'email')->ignore($id),
-            'phone' => 'required|'.Rule::unique('users', 'phone')->ignore($id),
-        ];
-    }
 
-    private function assurence($id)
-    {
-        return PersonalAccessToken::where( 'name' ,'LIKE', auth()->user()->name )->
-        Where('tokenable_id','LIKE',$id)->
-        where('tokenable_type' , 'App\Models\User')->
-        get();
-    }
 
 }

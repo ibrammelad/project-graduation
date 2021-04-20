@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Doctor;
+use App\Models\User;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
@@ -31,7 +32,9 @@ class DoctorFactory extends Factory
             'lang' =>   $this->faker->numberBetween('30.753989', '31.2357'),
             'lat' => $this->faker->numberBetween('28.091889','30.0444'),
             'from' => '9 pm',
-            'to' => '12 Am'
+            'to' => '12 Am' ,
+            'user_id' => function(){
+                return  User::all()->random();} ,
 
         ];
     }

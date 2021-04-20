@@ -14,8 +14,6 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-
-    use apiResponse;
     public function register(Request $request)
     {
         try {

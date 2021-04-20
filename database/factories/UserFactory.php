@@ -40,10 +40,7 @@ class UserFactory extends Factory
             'showMail' =>$this->faker->numberBetween(0,1),
             'showName' =>$this->faker->numberBetween(0,1),
             'showNearly' =>$this->faker->numberBetween(0,1),
-            'doctor_details_id' => function(){
-                return  Doctor::all()->random();} ,
-            'nurse_details_id' => function(){
-                return  Nurse::all()->random();} ,
+
 
         ];
     }

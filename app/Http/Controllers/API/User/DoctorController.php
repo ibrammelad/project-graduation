@@ -3,37 +3,42 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
+use App\Models\Nurse;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+
 
 
 class DoctorController extends Controller
 {
 
-    public function index()
+    public function allDoctors()
     {
-
+        $doctors = Doctor::active()->get();
+        return $this->showAll($doctors);
     }
 
-    public function store(Request $request)
+    public function makeMeDoctor(Request $request , $id)
     {
-        //
-    }
+        try {
 
-    public function show($id)
-    {
-        //
-    }
+            if (User::assurence($id)->first() == null)
+                return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            if (Nurse::where('user_id' , $id)->exists())
+                return $this->errorResponse('you are nurse  ', 400);
 
 
-    public function destroy($id)
-    {
-        //
+            $this->validate($request, Doctor::validDoc());
+            $input = $request->all();
+            $input['user_id']= auth()->user()->id;
+            $doctor = Doctor::create($input);
+            return $this->showOne($doctor);
+        }
+        catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }

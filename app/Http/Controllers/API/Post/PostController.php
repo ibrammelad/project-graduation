@@ -3,62 +3,65 @@
 namespace App\Http\Controllers\API\Post;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $posts = Post::orderByDesc('created_at')->get();
+        return $this->showAll($posts);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $rules =[
+            'text' => 'required|string',
+            'user_id' => 'exists:users,id',
+        ];
+        $this->validate($request , $rules);
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        $post = Post::create($input);
+        return $this->showOne($post);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        return $this->showOne(Post::find($id));
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+
+        $post = Post::findOrFail($id);
+        if ($post->user_id != auth()->user()->id)
+            return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
+
+        $rules =[
+            'text' => 'string',
+            'user_id' => 'exists:users,id',
+        ];
+        $this->validate($request,$rules);
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        $post->update($input);
+
+        return $this->showOne($post);
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        if ($post->user_id != auth()->user()->id)
+            return $this->errorResponse('unauthenticated you try to delete post of another user you do not have permission ', 404);
+        $post->delete();
+        return $this->successResponse("post is delete" , 200);
+
     }
 }
