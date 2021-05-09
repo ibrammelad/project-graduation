@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 
 class ManageUserController extends Controller
 {
-    public function showEmail(Request $request ,$id)
+    public function showEmail(Request $request )
     {
         $rules = [
             'showMail' => 'required|in:0,1'
         ];
+        $id = auth()->user()->id;
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
         $this->validate($request, $rules);
@@ -20,11 +21,12 @@ class ManageUserController extends Controller
         $user->update(['showMail' => $request->showMail]);
         return $this->showOne($user);
     }
-    public function showName(Request $request ,$id)
+    public function showName(Request $request)
     {
         $rules = [
             'showName' => 'required|in:0,1'
         ];
+        $id = auth()->user()->id;
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
@@ -33,11 +35,12 @@ class ManageUserController extends Controller
         $user->update(['showName' => $request->showName]);
         return $this->showOne($user);
     }
-    public function showNearly(Request $request ,$id)
+    public function showNearly(Request $request )
     {
         $rules = [
             'showNearly' => 'required|in:0,1'
         ];
+        $id = auth()->user()->id;
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
@@ -46,11 +49,13 @@ class ManageUserController extends Controller
         $user->update(['showNearly' => $request->showNearly]);
         return $this->showOne($user);
     }
-    public function HaveCovid19(Request $request ,$id)
+    public function HaveCovid19(Request $request)
     {
         $rules = [
             'HaveCovid19' => 'required|in:0,1'
         ];
+        $id = auth()->user()->id;
+
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
@@ -59,11 +64,14 @@ class ManageUserController extends Controller
         $user->update(['HaveCovid19' => $request->HaveCovid19]);
         return $this->showOne($user);
     }
-    public function HelpUsers(Request $request ,$id)
+    public function HelpUsers(Request $request)
     {
         $rules = [
             'HelpUsers' => 'required|in:0,1'
         ];
+
+        $id = auth()->user()->id;
+
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 

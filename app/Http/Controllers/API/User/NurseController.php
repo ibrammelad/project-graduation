@@ -17,10 +17,10 @@ class NurseController extends Controller
         return $this->showAll($nurses);
     }
 
-    public function makeMeNurse(Request $request , $id)
+    public function makeMeNurse(Request $request)
     {
         try {
-
+            $id = auth()->user()->id;
             if (User::assurence($id)->first() == null)
                 return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
@@ -29,7 +29,7 @@ class NurseController extends Controller
 
             $this->validate($request, Nurse::validNurse());
             $input = $request->all();
-            $input['user_id']= auth()->user()->id;
+            $input['user_id']= $id;
             $nurse = Nurse::create($input);
             return $this->showOne($nurse);
         }

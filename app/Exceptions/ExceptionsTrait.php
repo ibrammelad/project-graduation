@@ -28,7 +28,7 @@ namespace App\Exceptions;
          }
 
          if ($exception instanceof AuthenticationException) {
-             return response()->json('UnAuthentication');
+             return response()->json('UnAuthentication ...!!');
          }
          if ($exception instanceof AuthorizationException) {
              return response()->json('UnAuthorization' ,404);

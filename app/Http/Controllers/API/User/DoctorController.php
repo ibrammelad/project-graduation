@@ -19,21 +19,23 @@ class DoctorController extends Controller
         return $this->showAll($doctors);
     }
 
-    public function makeMeDoctor(Request $request , $id)
+    public function makeMeDoctor(Request $request)
     {
         try {
 
+
+            $id = auth()->user()->id;
             if (User::assurence($id)->first() == null)
                 return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
 
             if (Nurse::where('user_id' , $id)->exists())
-                return $this->errorResponse('you are nurse  ', 400);
+                return $this->errorResponse('you are nurse ', 400);
 
 
             $this->validate($request, Doctor::validDoc());
             $input = $request->all();
-            $input['user_id']= auth()->user()->id;
+            $input['user_id']= $id;
             $doctor = Doctor::create($input);
             return $this->showOne($doctor);
         }

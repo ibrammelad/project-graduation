@@ -24,16 +24,16 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
     ////////////////////////// end logout //////////////////////
 
     /// ////////////////// manage Controller /////////////////////////////////////////
-    Route::patch('/{id}/showEmail',[\App\Http\Controllers\API\User\ManageUserController::class , 'showEmail']);
-    Route::patch('/{id}/showName',[\App\Http\Controllers\API\User\ManageUserController::class , 'showName']);
-    Route::patch('/{id}/showNearly',[\App\Http\Controllers\API\User\ManageUserController::class , 'showNearly']);
-    Route::patch('/{id}/HaveCovid19',[\App\Http\Controllers\API\User\ManageUserController::class , 'HaveCovid19']);
-    Route::patch('/{id}/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
+    Route::patch('/showEmail',[\App\Http\Controllers\API\User\ManageUserController::class , 'showEmail']);
+    Route::patch('/showName',[\App\Http\Controllers\API\User\ManageUserController::class , 'showName']);
+    Route::patch('/showNearly',[\App\Http\Controllers\API\User\ManageUserController::class , 'showNearly']);
+    Route::patch('/HaveCovid19',[\App\Http\Controllers\API\User\ManageUserController::class , 'HaveCovid19']);
+    Route::patch('/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
     //////////////////////////////// end manage Controllers /////////////////////////
 
     /////////////////////// doctor Controller ///////////////////////////////
-    Route::post('/{id}/makeMeDoctor' , [\App\Http\Controllers\API\User\DoctorController::class , 'makeMeDoctor']) ;
-    Route::post('/{id}/makeMeNurse' , [\App\Http\Controllers\API\User\NurseController::class , 'makeMeNurse']) ;
+    Route::post('/makeMeDoctor' , [\App\Http\Controllers\API\User\DoctorController::class , 'makeMeDoctor']) ;
+    Route::post('/makeMeNurse' , [\App\Http\Controllers\API\User\NurseController::class , 'makeMeNurse']) ;
     ////////////////////////  end doctor Controlller /////////////////////////
 });
 
