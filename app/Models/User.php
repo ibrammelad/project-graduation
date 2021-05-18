@@ -19,15 +19,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-
-    const showMAIL = 1 ;
-    const showName = 1 ;
-    const showNearly = 1 ;
-    const HaveCovid19 = 0 ;
     protected $fillable = [
-        	'name', 'email', 'phone'	, 'token', 'status',	'image',
-            'showMail',	'showName',	'showNearly',	'HaveCovid19','HelpUsers',
-            	'email_verified_at','password'	,'created_at',	'updated_at'
+        'name', 'email', 'password','phone','token','code','status','image',
+        'showMail','showName','showNearly','HaveCovid19','HelpUsers',
+        'created_at',	'updated_at'
     ];
 
     /**
@@ -74,7 +69,7 @@ class User extends Authenticatable
     }
     public function nurse()
     {
-        return $this->hasOne(Doctor::class);
+        return $this->hasOne(Nurse::class);
     }
 
 }

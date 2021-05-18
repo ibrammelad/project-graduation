@@ -19,15 +19,15 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();
             $table->string('password')->nullable();
-            $table->string('token')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->string('token')->nullable()->unique();
+            $table->tinyInteger('status')->default(0);
+            $table->string('code')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('showMail')->default(1);
             $table->tinyInteger('showName')->default(1);
             $table->tinyInteger('showNearly')->default(1);
             $table->tinyInteger('HaveCovid19')->default(0);
-            $table->tinyInteger('HelpUsers')->default(1);
-
+            $table->tinyInteger('HelpUsers')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

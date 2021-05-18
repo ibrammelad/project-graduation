@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\Regesiter;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Traits\apiResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -33,19 +32,20 @@ class LoginController extends Controller
             $input = $request->all();
             $input['password_confirmation'] = bcrypt($request->password_confirmation);
             $input['password'] = bcrypt($input['password']);
-            $input['showMail'] = User::showMAIL;
-            $input['showName'] = User::showName;
-            $input['showNearly'] = User::showNearly;
-            $input['HaveCovid19'] = User::HaveCovid19;
             $user = User::create($input);
-            $success['token'] = $user->createToken($user->name)->plainTextToken;
-            $success['name'] = $user->name;
+            $user['token'] = $user->createToken($user->name)->plainTextToken;
             DB::commit();
-            return response()->json($success, 202);
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                $this->sendSmsToMobile($user);
+            }
+            return response()->json($user, 202);
+
+
         }
         catch(\Exception $exception)
         {
-            return $this->errorResponse('some error occur', 404);
+            return $this->errorResponse($exception->getMessage(), 404);
 
         }
     }
@@ -59,15 +59,15 @@ class LoginController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        $success['token'] =  $user->createToken($user->name)->plainTextToken;
-        $success['name'] =  $user->name;
-        return $this->successResponse($success , 202);
+        $user['token'] =  $user->createToken($user->name)->plainTextToken;
+        return $this->successResponse($user , 202);
     }
 
     public function registerWith(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
+                'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'phone' => 'Digits:11|unique:users',
                 'token' => 'required',
@@ -76,18 +76,22 @@ class LoginController extends Controller
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 404);
             }
+            $user = User::where('email', $request->email)->first();
+
 
             DB::beginTransaction();
-            $input = $request->all();
-            $input['showMail'] = User::showMAIL;
-            $input['showName'] = User::showName;
-            $input['showNearly'] = User::showNearly;
-            $input['HaveCovid19'] = User::HaveCovid19;
-            $user = User::create($input);
-            $success['token'] = $user->createToken($user->name)->plainTextToken;
-            $success['name'] = $user->name;
+            if ($user === null) {
+
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'token' => $request->id,
+                    'status' => 1
+                ]);
+                $user['token'] = $user->createToken($user->name)->plainTextToken;
+            }
             DB::commit();
-            return $this->successResponse($success, 202);
+            return $this->successResponse($user, 202);
         }
         catch(\Exception $exception)
         {
@@ -116,5 +120,19 @@ class LoginController extends Controller
     }
 
 
+    public function sendSmsToMobile($user)
+    {
+        $code= rand('1000' , '9999');
+        $user->update([
+            'code' => $code]);
+        $basic  = new \Vonage\Client\Credentials\Basic("abfc9078", "EqgqIwFt21UKweqm");
+        $client = new \Vonage\Client($basic);
+        $response = $client->sms()->send(
+            new \Vonage\SMS\Message\SMS("2".$user->phone, '7asb', 'Verification Code : '.$code)
+        );
+
+        return $code;
+
+    }
 
 }
