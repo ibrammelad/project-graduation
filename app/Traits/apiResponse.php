@@ -14,7 +14,7 @@ trait apiResponse
 
     protected function successResponse($data, $code)
     {
-        return response()->json($data, $code);
+        return response()->json(['data'=>$data , 'status' =>$code ], $code);
     }
 
     protected function showAll(Collection $collection, $code = 200, $perPage = 15)
@@ -27,7 +27,7 @@ trait apiResponse
         // must be before transformData as it become non collection
 //        $collection = $this->filterData($collection, $transformer);
 //        $collection = $this->sortData($collection, $transformer);
-        $collection = $this->paginate($collection, $perPage);
+      //  $collection = $this->paginate($collection, $perPage);
         //$collection = $this->transformData($collection, $transformer);
 //        $collection = $this->cache($collection);
 
@@ -37,7 +37,7 @@ trait apiResponse
 
     protected function showOne(Model $instance, $code = 200)
     {
-        $transformer = $instance->transformer;
+        //$transformer = $instance->transformer;
 
         //$instance = $this->transformData($instance, $transformer);
 
@@ -58,6 +58,22 @@ trait apiResponse
     }
 
 
+    function distance($lat1, $lon1, $lat2, $lon2)
+    {
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+            return 0;
+        } else {
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+
+            return ($miles * 1.609344*1000);
+
+        }
+    }
+
     /// ///// transformation for data for view
 //    protected function transformData($data, $transformer)
 //    {
@@ -66,26 +82,26 @@ trait apiResponse
 //    }
 
 
-    protected function paginate(Collection $collection, $perPage)
-    {
-        $rules = [
-            'perPage' => 'integer|min:2|max:50',
-        ];
-        Validator::validate(request()->all(), $rules);
-        $page = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 15;
-        if (request()->has('perPage')) {
-            $perPage = request()->perPage;
-        }
-        $result = $collection->slice(($page - 1) * $perPage, $perPage);
-        $paginator = new LengthAwarePaginator($result, $collection->count(), $perPage, $page, [
-            'path' => LengthAwarePaginator::resolveCurrentPath(),
-        ]);
-
-        $paginator->appends(request()->all());
-
-        return $paginator;
-    }
+//    protected function paginate(Collection $collection, $perPage)
+//    {
+//        $rules = [
+//            'perPage' => 'integer|min:2|max:50',
+//        ];
+//        Validator::validate(request()->all(), $rules);
+//        $page = LengthAwarePaginator::resolveCurrentPage();
+//        $perPage = 15;
+//        if (request()->has('perPage')) {
+//            $perPage = request()->perPage;
+//        }
+//        $result = $collection->slice(($page - 1) * $perPage, $perPage);
+//        $paginator = new LengthAwarePaginator($result, $collection->count(), $perPage, $page, [
+//            'path' => LengthAwarePaginator::resolveCurrentPath(),
+//        ]);
+//
+//        $paginator->appends(request()->all());
+//
+//        return $paginator;
+//    }
     /////////// to remember the data has operation some of time
 //    protected function cache($data)
 //    {

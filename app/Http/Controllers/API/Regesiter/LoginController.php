@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API\Regesiter;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Traits\apiResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Exception;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,19 +33,22 @@ class LoginController extends Controller
             $input = $request->all();
             $input['password_confirmation'] = bcrypt($request->password_confirmation);
             $input['password'] = bcrypt($input['password']);
-            $input['showMail'] = User::showMAIL;
-            $input['showName'] = User::showName;
-            $input['showNearly'] = User::showNearly;
-            $input['HaveCovid19'] = User::HaveCovid19;
             $user = User::create($input);
-            $success['token'] = $user->createToken($user->name)->plainTextToken;
-            $success['name'] = $user->name;
             DB::commit();
-            return response()->json($success, 202);
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+               // $this->sendSmsToMobile($user);
+            }
+            $user = \auth()->user();
+            $user['tokenKey'] = $user->createToken($user->name)->plainTextToken;
+
+            return $this->showOne($user , 202);
+
+
         }
         catch(\Exception $exception)
         {
-            return $this->errorResponse('some error occur', 404);
+            return $this->errorResponse($exception->getMessage(), 404);
 
         }
     }
@@ -54,47 +57,43 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+                'email' => ['The provided credentials are incorrect.']]);
         }
-        $success['token'] =  $user->createToken($user->name)->plainTextToken;
-        $success['name'] =  $user->name;
-        return $this->successResponse($success , 202);
+        $user['tokenKey'] =  $user->createToken($user->name)->plainTextToken;
+        return $this->showOne($user , 202);
     }
 
     public function registerWith(Request $request)
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email|unique:users',
-                'phone' => 'Digits:11|unique:users',
-                'token' => 'required',
-            ]);
+           try{
+               $user = User::where('email', $request->email)->first();
+               if ($user === null) {
+                   $user =User::create([
+                       'name' => $request->name,
+                       'email' => $request->email,
+                       'token' => $request->token,
+                       'status' => 1,
+                       'password' => null ,
+                       'phone' => null,
+                       'code' => null,
+                       'image' => null,
+                       'showMail' => 1,
+                       'showName'=>1 ,
+                       'showNearly'=>1,
+                       'HaveCovid19'=>0,
+                       'HelpUsers' => 0,
+                   ]);
+               }
+               $user['tokenKey'] = $user->createToken($user->name)->plainTextToken;
 
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 404);
-            }
-
-            DB::beginTransaction();
-            $input = $request->all();
-            $input['showMail'] = User::showMAIL;
-            $input['showName'] = User::showName;
-            $input['showNearly'] = User::showNearly;
-            $input['HaveCovid19'] = User::HaveCovid19;
-            $user = User::create($input);
-            $success['token'] = $user->createToken($user->name)->plainTextToken;
-            $success['name'] = $user->name;
-            DB::commit();
-            return $this->successResponse($success, 202);
-        }
-        catch(\Exception $exception)
-        {
-            return $this->errorResponse('some error occur', 404);
-
-        }
+               return $this->successResponse($user, 202);
+           }catch (Exception $exception) {
+               return response()->json(['message' => 'this email is already token'], 404);
+           }
     }
+
     public function loginWith(Request $request)
     {
         $user = User::where('email',$request->email)->where('token',$request->token)->first();
@@ -103,7 +102,7 @@ class LoginController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        $success['token'] =  $user->createToken($user->name)->plainTextToken;
+        $success['tokenKey'] =  $user->createToken($user->name)->plainTextToken;
         $success['name'] =  $user->name;
         return $this->successResponse($success , 202);
     }
@@ -116,5 +115,19 @@ class LoginController extends Controller
     }
 
 
+    public function sendSmsToMobile($user)
+    {
+        $code= rand('1000' , '9999');
+        $user->update([
+            'code' => $code]);
+        $basic  = new \Vonage\Client\Credentials\Basic("abfc9078", "EqgqIwFt21UKweqm");
+        $client = new \Vonage\Client($basic);
+        $response = $client->sms()->send(
+            new \Vonage\SMS\Message\SMS("2".$user->phone, '7asb', 'Verification Code : '.$code)
+        );
+
+        return $code;
+
+    }
 
 }

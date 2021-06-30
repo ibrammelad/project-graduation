@@ -14,5 +14,16 @@ class Post extends Model
        'text' , 'user_id' , 'image' , 'created_at' , 'updated_at'
     ];
 
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+
+    }
+
 }
 

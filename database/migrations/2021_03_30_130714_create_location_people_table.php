@@ -17,7 +17,7 @@ class CreateLocationPeopleTable extends Migration
             $table->id();
             $table->double('lang');
             $table->double('lat');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->unique();
             $table->timestamps();
             $table->foreign('user_id')->on('users')->references('id');
         });
