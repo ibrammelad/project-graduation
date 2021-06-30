@@ -27,8 +27,11 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
     Route::post('verify-password', [\App\Http\Controllers\API\Regesiter\PasswordController::class , 'verify_pass']);
     //////////////////////    end       ////////////////////////////////////////
 
+<<<<<<< HEAD
     Route::post('update-password', [\App\Http\Controllers\API\Regesiter\updatePassword::class , 'updatePassword']);
 
+=======
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
 
     ///////////////////// logout /////////////////////
     Route::get('/logout' , [\App\Http\Controllers\API\Regesiter\LoginController::class , 'logout']);
@@ -57,6 +60,7 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
 
 Route::group(['middleware'=>'auth:sanctum' ] , function () {
 
+<<<<<<< HEAD
     ///////////// ////////  user controllers  ///////////////////////
     Route::get('users' , [\App\Http\Controllers\API\User\UserController::class ,'index']);
     Route::post('users/modify' , [\App\Http\Controllers\API\User\UserController::class ,'update']);
@@ -65,11 +69,20 @@ Route::group(['middleware'=>'auth:sanctum' ] , function () {
     Route::get('nurses', [\App\Http\Controllers\API\User\NurseController::class,'allNurses']);
 
     //////////////////////////// posts //////////////////////////////////////////////////
+=======
+///////////// ////////  user controllers  ///////////////////////
+    Route::get('users' , [\App\Http\Controllers\API\User\UserController::class ,'index']);
+    Route::post('users/{id}' , [\App\Http\Controllers\API\User\UserController::class ,'update']);
+    Route::get('users/{id}' , [\App\Http\Controllers\API\User\UserController::class ,'show']);
+    Route::get('doctors', [\App\Http\Controllers\API\User\DoctorController::class,'allDoctors']);
+    Route::get('nurses', [\App\Http\Controllers\API\User\NurseController::class,'allNurses']);
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
     Route::get('posts' , [\App\Http\Controllers\API\Post\PostController::class ,'index']);
     Route::get('posts/{id}' , [\App\Http\Controllers\API\Post\PostController::class ,'show']);
     Route::post('posts/' , [\App\Http\Controllers\API\Post\PostController::class ,'store']);
     Route::post('posts/{id}' , [\App\Http\Controllers\API\Post\PostController::class ,'update']);
     Route::post('posts/{id}/delete' , [\App\Http\Controllers\API\Post\PostController::class ,'destroy']);
+<<<<<<< HEAD
     /////////////////////////////////////// end posts ///////////////////////////////////////////////
 
     /////////////////////////////////////// change password ///////////////////////////////////////////////
@@ -83,4 +96,9 @@ Route::group(['middleware'=>'auth:sanctum' ] , function () {
     Route::post('comments/{id}/delete' , [\App\Http\Controllers\API\Post\CommentController::class ,'destroy']);///////////////////////// end user controller /////////////////////////////
     ///////////////////////////////////////end comments ///////////////////////////////////////////////
 
+=======
+    Route::post('changePass',[\App\Http\Controllers\API\Regesiter\PasswordController::class , 'changePass']);
+
+///////////////////////// end user controller /////////////////////////////
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
 });

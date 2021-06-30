@@ -23,6 +23,7 @@ class VerifyController extends Controller
                         'code' => null,
                         'email_verified_at' => Carbon::now(),
                     ]);
+<<<<<<< HEAD
                 return response()->json(['message' => 'successfully' , 'status' => 200]);
             }
             else
@@ -30,6 +31,15 @@ class VerifyController extends Controller
 
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage() ,'status' => 404] );
+=======
+                return $this->successResponse('email verify successfully', 200);
+            }
+            else
+                return $this->errorResponse('some error occur', 400);
+
+        } catch (\Exception $exception) {
+            return $this->errorResponse($exception->getMessage(), 400);
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
         }
     }
 

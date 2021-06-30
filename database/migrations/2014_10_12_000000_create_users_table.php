@@ -20,7 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('token')->nullable()->unique();
+<<<<<<< HEAD
             $table->string('FCMToken')->nullable()->unique();
+=======
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
             $table->tinyInteger('status')->default(0);
             $table->string('code')->nullable();
             $table->string('image')->nullable();

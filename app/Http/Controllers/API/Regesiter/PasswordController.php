@@ -21,15 +21,26 @@ class PasswordController extends Controller
         }
 
         $user = User::where('phone' , $request->phone)->first();
+<<<<<<< HEAD
         if (!$user)
+=======
+        if ($user->count() == 0)
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
         {
             return $this->errorResponse( "this phone do'nt have account",  404);
         }
 
+<<<<<<< HEAD
         $this->sendSmsToMobile($user);
         $user['tokenKey'] = $user->createToken($user->name)->plainTextToken;
 
         return response()->json(["data" =>$user , "status"=> 200 ] , 200);
+=======
+//        $this->sendSmsToMobile($user);
+        $user['tokenAPi'] = $user->createToken($user->name)->plainTextToken;
+
+        return $this->successResponse([ $user , "message"=>'send message' ], 200);
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
     }
     public function verify_pass(Request $request)
     {
@@ -46,6 +57,7 @@ class PasswordController extends Controller
                         'code' => null,
                         'email_verified_at' => Carbon::now(),
                     ]);
+<<<<<<< HEAD
                 return response()->json(['message' => 'successfully' , 'status' => 200]);
             }
             else
@@ -53,10 +65,20 @@ class PasswordController extends Controller
 
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage() ,'status' => 404] );
+=======
+                return $this->successResponse('successfully', 200);
+            }
+            else
+                return $this->errorResponse('some error occur', 400);
+
+        } catch (\Exception $exception) {
+            return $this->errorResponse($exception->getMessage(), 400);
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
         }
     }
     public function changePass(Request $request)
     {
+<<<<<<< HEAD
         try {
             $rules = [
                 'new_password' => 'required|min:6',
@@ -74,6 +96,20 @@ class PasswordController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage(), 'status' => 404]);
         }
+=======
+        $rules =[
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|same:new_password',
+        ];
+        $this->validate($request,$rules);
+        $user = auth()->user();
+        $data['password'] = bcrypt($request->new_password);
+        if ($user->code == null && $user->status == 1) {
+            $user->update($data);
+        }
+        return $this->successResponse('update password' , 200);
+
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
     }
 
 

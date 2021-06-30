@@ -34,6 +34,7 @@ class LoginController extends Controller
             $input['password_confirmation'] = bcrypt($request->password_confirmation);
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);
+<<<<<<< HEAD
             DB::commit();
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
@@ -43,6 +44,15 @@ class LoginController extends Controller
             $user['tokenKey'] = $user->createToken($user->name)->plainTextToken;
 
             return $this->showOne($user , 202);
+=======
+            $user['token'] = $user->createToken($user->name)->plainTextToken;
+            DB::commit();
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                $this->sendSmsToMobile($user);
+            }
+            return response()->json($user, 202);
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
 
 
         }
@@ -61,12 +71,18 @@ class LoginController extends Controller
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.']]);
         }
+<<<<<<< HEAD
         $user['tokenKey'] =  $user->createToken($user->name)->plainTextToken;
         return $this->showOne($user , 202);
+=======
+        $user['token'] =  $user->createToken($user->name)->plainTextToken;
+        return $this->successResponse($user , 202);
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
     }
 
     public function registerWith(Request $request)
     {
+<<<<<<< HEAD
            try{
                $user = User::where('email', $request->email)->first();
                if ($user === null) {
@@ -92,6 +108,41 @@ class LoginController extends Controller
            }catch (Exception $exception) {
                return response()->json(['message' => 'this email is already token'], 404);
            }
+=======
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'phone' => 'Digits:11|unique:users',
+                'token' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 404);
+            }
+            $user = User::where('email', $request->email)->first();
+
+
+            DB::beginTransaction();
+            if ($user === null) {
+
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'token' => $request->id,
+                    'status' => 1
+                ]);
+                $user['token'] = $user->createToken($user->name)->plainTextToken;
+            }
+            DB::commit();
+            return $this->successResponse($user, 202);
+        }
+        catch(\Exception $exception)
+        {
+            return $this->errorResponse('some error occur', 404);
+
+        }
+>>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
     }
 
     public function loginWith(Request $request)
