@@ -17,10 +17,11 @@ class CreateLocationPersonInteractsTable extends Migration
             $table->id();
             $table->double('lang');
             $table->double('lat');
+            $table->string('address')->nullable();
             $table->unsignedBigInteger('user_1');
             $table->unsignedBigInteger('user_2');
-            $table->foreign('user_1')->on('users')->references('id');
-            $table->foreign('user_2')->on('users')->references('id');
+          //  $table->foreign('user_1')->on('users')->references('id');
+           // $table->foreign('user_2')->on('users')->references('id');
 
             $table->timestamps();
         });

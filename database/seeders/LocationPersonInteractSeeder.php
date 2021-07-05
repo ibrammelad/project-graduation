@@ -11,6 +11,6 @@ class LocationPersonInteractSeeder extends Seeder
 
     public function run()
     {
-        LocationPersonInteract::factory(1500)->create();
+        LocationPersonInteract::factory(5)->create();
     }
 }

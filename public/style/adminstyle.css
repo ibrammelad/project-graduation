@@ -1,0 +1,126 @@
+ body{
+			background-image: url("/imges/coronavirus.jpg");
+      
+		}
+/*----------------------------------------------login-------------------*/
+.form-group{
+		border:1px solid black;
+		width: 50%;
+		padding: 30px;
+		margin-left: 350px;
+		margin-top: 100px;
+		background-color: #f7f8f8;
+	}
+	.form-group-h2{
+		font-weight: bold;
+		padding: 10px;
+	}
+	.form-group-span{
+		font-size: 20px;
+		padding: 10px;
+	}
+	.form-group-input{
+		width: 60%;
+		padding: 7px 5px;
+		margin-bottom: 20px;
+	}
+	.form-group-button{
+		margin-left: 370px;
+		padding: 5px 40px;
+		background-color: #0b3692;
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	.form-group-button:hover{
+		background-color: #092d7a;
+	}
+	/*--------------------------------------------------add hos-------------*/
+	.hos-div-2{
+			width: 40%;
+			display: inline-block;
+			padding-top: 50px;
+			position: absolute;
+			margin-left: 100px;
+			margin-top: 50px;
+		}
+		.hos-div-3{
+			width: 40%;
+			display: inline-block;
+			position: relative;
+			margin-left: 55%;
+			margin-top: 200px;
+			
+			padding: 50;
+			font-size: 20px;
+		}
+		.hos-div-3 input{
+			margin: 20px;
+			padding:5px 10px;
+			border-radius: 10px;
+		}
+		.hos-div-3 button{
+			text-align: center;
+			margin-left: 40%;
+			border-radius: 15px;
+			padding: 10px 30px;
+			background-color: #1d759b;
+			color: white;
+			margin-bottom: 30px;
+			
+		}
+		.hos-div-3 button:hover{
+			background-color: #1b6c8f;
+		}
+		.hos-div-3 div{
+			font-size: 40px;
+			text-shadow: black;
+		}
+/*---------------------------------have covid rev---------*/
+		.container-h1{
+		margin-top: 40px;
+		text-align: center;
+
+	}
+	.table-tr{
+		
+		background-color: #f7f8f8;
+	}
+	.div-radio{
+		padding-top: 60px;
+	}
+	.td-radio label{
+		padding-right: 10px;
+	}
+	.table-tr .td{
+		padding-top: 60px;
+	}
+
+	
+	/*--------------------------------header-----------*/
+		.header-nav-ul{
+		margin-left: 1300px;
+		margin-top: 10px;
+		top: 0;
+		position: fixed;
+		
+
+	}
+	.header-nav-ul li{
+		display: inline-block;
+		color: black;
+		padding: 10px;
+		font-size: 20px;
+		margin-right: 100px;
+
+	}
+	.header-nav-ul a{
+		padding: 20px;
+		font-size: 20px;
+	}
+	.header-nav-ul li:hover{
+		border-radius: 50px;
+		background-color: #1cbbd0;
+	}
+
+	

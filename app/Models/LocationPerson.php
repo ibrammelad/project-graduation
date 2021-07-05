@@ -12,6 +12,6 @@ class LocationPerson extends Model
     protected $table ="location_people";
 
     public $fillable =[
-        'lang' , 'lat' , 'user_id'
+        'lang' , 'lat' , 'user_id' , 'address'
     ];
 }

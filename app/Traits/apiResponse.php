@@ -20,7 +20,7 @@ trait apiResponse
     protected function showAll(Collection $collection, $code = 200, $perPage = 15)
     {
         if ($collection->isEmpty()) {
-            return $this->successResponse(['data' => $collection], $code);
+            return $this->successResponse($collection, $code);
         }
       //  $transformer = $collection->first()->transformer;
 
@@ -82,26 +82,26 @@ trait apiResponse
 //    }
 
 
-//    protected function paginate(Collection $collection, $perPage)
-//    {
-//        $rules = [
-//            'perPage' => 'integer|min:2|max:50',
-//        ];
-//        Validator::validate(request()->all(), $rules);
-//        $page = LengthAwarePaginator::resolveCurrentPage();
-//        $perPage = 15;
-//        if (request()->has('perPage')) {
-//            $perPage = request()->perPage;
-//        }
-//        $result = $collection->slice(($page - 1) * $perPage, $perPage);
-//        $paginator = new LengthAwarePaginator($result, $collection->count(), $perPage, $page, [
-//            'path' => LengthAwarePaginator::resolveCurrentPath(),
-//        ]);
-//
-//        $paginator->appends(request()->all());
-//
-//        return $paginator;
-//    }
+    protected function paginate(Collection $collection, $perPage)
+    {
+        $rules = [
+            'perPage' => 'integer|min:2|max:50',
+        ];
+        Validator::validate(request()->all(), $rules);
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 15;
+        if (request()->has('perPage')) {
+            $perPage = request()->perPage;
+        }
+        $result = $collection->slice(($page - 1) * $perPage, $perPage);
+        $paginator = new LengthAwarePaginator($result, $collection->count(), $perPage, $page, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
+
+        $paginator->appends(request()->all());
+
+        return $paginator;
+    }
     /////////// to remember the data has operation some of time
 //    protected function cache($data)
 //    {

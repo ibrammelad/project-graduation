@@ -1,0 +1,91 @@
+body{
+			background-image: url("/imges/coronavirus.jpg");
+      
+		}
+	
+ /*------------------------------------chat ------------------------------*/
+ ::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  width: 5px;
+  background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 1em;
+  background-color: #ddd;
+  outline: 1px solid slategrey;
+  border-radius: 1rem;
+}
+
+.text-small {
+  font-size: 0.9rem;
+}
+
+.messages-box,
+.chat-box {
+  height: 510px;
+  overflow-y: scroll;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+	
+
+	/*--------------------------------has-symptoms---------------------------*/
+	.div-symptoms{
+		background-color: white;
+		width: 50%;
+		margin-left: 380px;
+		margin-top: 150px;
+		padding: 30px;
+		line-height: 20px;
+		text-align: left;
+		color: #138290;
+	}
+	.div-symptoms-button{
+		border-radius: 10px;
+		padding: 10px 15px;
+		margin-left: 600px;
+		background-color: #1d759b;
+		color: white;
+	}
+	/*------------------------------iam-susbected.html---------------------------*/
+	.div-report{
+		background-color: #f3f4f4;
+		width: 60%;
+		margin-left: 260px;
+		margin-top: 120px;
+		padding: 20px;
+	}
+	.div-report-img{
+		margin-left: 350px;
+	}
+	.div-report-file{
+		border:1px solid black;
+		padding: 5px;
+		margin-left: 340px;
+		border-radius: 10px;
+	}
+	.div-report-h3{
+		text-align: center;
+		font-size: 30px;
+	}
+	.div-report-button{
+		border-radius: 10px;
+		padding: 10px 15px;
+		margin-left: 700px;
+		background-color: #1d759b;
+		color: white;
+	}
+	
+	

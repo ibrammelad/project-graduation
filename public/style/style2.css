@@ -1,0 +1,123 @@
+body{
+      background-image: url("/imges/coronavirus.jpg");
+      
+    }
+  
+/*-----------------------------------------------news------------------------*/
+.counter {
+  display: inline-flex;
+  cursor:pointer;
+  width:120px;
+  height:100px;
+  max-width:100%;
+  position:relative;
+  justify-content:center;
+  align-items:center;
+  font-size: calc(1em + 1vmin);
+  transition: height .2s ease-in-out;
+  background: #fff;
+  border-radius:50%;
+  box-shadow:0px 1px 10px 2px rgba(0,0,0,0.2);
+  margin:1em 0;
+}
+.percentage {
+  position:absolute;
+  text-align:center;
+  top:50%;
+  left:0;
+  right:0;
+  vertical-align:middle;
+  transform:translate3d(0,-50%,0);
+}
+canvas {
+  position:absolute;
+  top:0;
+  left:0;
+}
+input {
+    width: 200px;
+}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+body {
+  font-family: 'Open Sans', sans-serif;
+  text-align:center;
+}
+.wrapper table{
+
+	width: 60%;
+	padding: 0;
+	margin: 0;
+	margin-left: 300px;
+	margin-top: 50px;
+
+}
+.wrapper table td{
+	padding-left: 20px;
+	background-color: #f8f8f8;
+	border-radius: 100px;
+	margin: 10px;
+}
+.section-news{
+   		margin-top: 50px;
+   		margin-left: 250px;
+
+   	}
+   	.news-div{
+   		
+   		width: 75%;
+   		background-color: #f8f8f8;
+   		margin-top: 50px;
+   		margin-left: 300px;
+   		width: 60%;
+   	}
+   	.news-div h1{
+   		font-size: 80px;
+   		padding: 10px;
+   		margin-left: 80px;
+   		text-align: left;
+   		text-decoration: underline;
+
+
+   	}
+   	
+   	.news-div-table {
+   		margin-left:20px;
+   	}
+  	.news-div-table a{
+  		text-decoration: none;
+  	}
+    .news-div-table h2{
+     color: darkblue;
+    }
+  	.news-div-table a :hover{
+  		text-decoration: underline;
+  	}
+   	.news-div-table p{
+   		color: black;
+   		width: 80%;
+   		text-align: center;
+   		margin-left: 40px;
+   		
+   	}
+   
+
+         /*----------------------------------------------show news------------------------*/
+    .container-div-news{
+    padding-top: 20px;
+    width: 50%;
+    background-color: #f7f8f8;
+    margin-top: 150px;
+    border-radius: 20px;
+  }
+  .container-div-news h2{
+    
+    padding: 10px;
+  }
+  .container-div-news img{
+    padding-left:20px; 
+  }
+  .container-div-news p{
+    padding: 20px;
+    padding-left: 100px;
+    width: 90%;
+  }

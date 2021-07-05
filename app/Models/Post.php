@@ -25,5 +25,10 @@ class Post extends Model
 
     }
 
+    public function SaveUser()
+    {
+        return $this->hasMany(User::class);
+
+    }
 }
 

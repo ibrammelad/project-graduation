@@ -15,11 +15,11 @@ class PostController extends Controller
     public function index(Post $post)
     {
         $posts = DB::table('posts')
-            ->leftJoin('comments', 'posts.id', '=', 'comments.post_id')
-            ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-            ->selectRaw('posts.*, count(comments.post_id) as commentCount , users.image as userImage, users.name as userName ')
-
-            ->groupBy('posts.id')
+            ->leftJoin('comments','posts.id','=','comments.post_id')
+            ->leftJoin('users', 'users.id','=' , 'posts.user_id',)
+            ->selectRaw('posts.* , count(comments.post_id) as commentCount ,users.image as userImage ,users.name as userName ')
+            ->groupBy('posts.id' , 'posts.text' , 'posts.image','posts.user_id', 'created_at' , 'updated_at' , 'users.image' , 'users.name' )
+            ->orderByDesc('posts.updated_at')
             ->simplePaginate(15);
         return $this->showAll(collect($posts));
     }
@@ -79,6 +79,12 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         if ($post->user_id != auth()->user()->id)
             return $this->errorResponse('unauthenticated you try to delete post of another user you do not have permission ', 404);
+        if ($post->image != null)
+        {
+            $image = $post->image;
+            $image = public_path('images/'.$image);  // get the path of basic app
+            unlink($image);              // delete photo from directory
+        }
         $post->delete();
         return $this->successResponse("post is delete" , 200);
 

@@ -10,7 +10,7 @@ class Nurse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'salary' , 'services'  , 'qualifications'  , 'from' , 'to' ,'user_id', 'status', 'created_at' ,'updated_at'
+        'salary' , 'services'  , 'qualifications'  ,'review', 'from' , 'to' ,'user_id', 'status', 'created_at' ,'updated_at'
     ];
 
 
@@ -26,12 +26,11 @@ class Nurse extends Model
     public static function validNurse()
     {
         return[
-            'salary' => 'required|numeric',
+            'salary' => 'required',
             'services' => 'required',
             'qualifications' => 'required',
             'from' => 'required',
             'to' => 'required',
-            'status' =>'required|in:0,1',
             'user_id' => 'unique:users,id'
         ];
     }

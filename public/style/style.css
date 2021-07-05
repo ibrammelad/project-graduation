@@ -1,0 +1,759 @@
+ body{
+			background-image: url("/imges/coronavirus.jpg");
+      
+		}
+  /*-----------------------------------header----------------------------*/
+  .header-nav-ul{
+    padding-left: 200px;
+    background-color: #f8f8f8;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+
+  }
+  .header-nav-ul li{
+    display: inline-block;
+    color: black;
+    padding: 10px;
+    font-size: 15px;
+    margin-right: 155px;
+    font-weight: bold;
+  }
+  .header-nav-ul li:hover{
+    border-radius: 50px;
+    background-color: #1ecbe1;
+  }
+
+  .dropdown-item{
+    padding: 10px;
+    margin-right: 50px;
+
+  }
+  .dropdown-item i{
+    margin-right: 10px;
+    padding: 10px;
+    background-color:#1cbbd0;
+    border-radius: 25px; 
+
+  }
+  .dropdown-item span{
+    font-size: 15px;
+  }
+  .dropdown-item div{
+  
+    float: right;
+  }
+/*---------------------------------------sign-in ------------------------*/
+/*-------------------------------------sign-up page-----------------------*/
+
+#myCarousel{
+	width: 66%;
+
+}
+.carousel-div{
+display: inline-block;
+position: absolute;
+margin-top: 100px;
+}
+.signin-div{
+	
+	width: 30%;
+	display: inline-block;
+	position: relative;
+	padding-bottom: 20px;
+	margin-left: 330px;
+	margin-top: 100px;
+	background-color: #f8f8f8;
+
+}
+.signin-div-h1{
+	text-align: center;
+	font-weight: bold;
+}
+.signin-div-h3{
+	text-align: center;
+	color: #1ecbe1;
+	margin-bottom: 20px;
+}
+.signin-div-form{
+	padding: 30px;
+}
+.signin-div-input{
+	padding: 10px;
+	border:none;
+	border-bottom: 1px solid #1ecbe1;
+	margin-left: 50px;
+	width: 70%;
+	background-color: #f8f8f8;
+}
+.signin-div-form input[type=checkbox]{
+	margin-left: 40px;
+	margin-top: 20px;
+
+}
+.checkbox-span{
+	color: #1ecbe1;
+	
+}
+.signin-div-form button{
+	margin: 20px;
+	text-align: center;
+	margin-left: 150px;
+	color: white;
+	background-color: #1ecbe1;
+	border-radius: 10px;
+	padding: 5px 25px;
+	border:1px solid #1ecbe1;
+}
+.signin-div-form button:hover{
+	background-color: #1dc4da;
+}
+.signin-div-form a{
+	margin-left: 40px;
+	margin-top: 20px;
+	color: #1ecbe1;
+}
+.signin-div-form h6{
+	margin-left: 150px;
+	font-weight: bold;
+}
+.signin-div-span{
+	margin-left: 30px;
+	margin-top: 20px;
+	color: gray;
+}
+.signin-div ul{
+	margin-left: 70px;
+}
+.signin-div li{
+	padding: 10px;
+	margin-left: 30px;
+	border-radius: 30px;
+}
+/*-------------------------------------forget password page-----------------------*/
+.forget-section{
+  		background-color: white;
+  		width: 65%;
+  		margin-top: 110px;
+  		margin-left: 250px;
+  	}
+  	.forget-img{
+  		display: inline-block;
+  		position: relative;
+
+  	}
+  	.forget-form{
+  		display: inline-block;
+  		position: absolute;
+  		padding-top: 80px;
+  		background-color: white;
+  	}
+  	.forget-form-h1{
+  		font-weight: bold;
+  		font-size: 60px;
+  	}
+  	.forget-form-h4{
+  		color: #04181b;
+  		
+  	}
+  	.forget-form-input{
+  		margin-top: 10px;
+  		padding: 10px;
+		border:none;
+		border-bottom: 1px solid #1ecbe1;
+		width: 90%;
+
+  	}
+  	.forget-form-button{
+	margin: 14px;
+	text-align: center;
+	margin-left: 200px;
+	margin-top: 30px;
+	color: white;
+	background-color: #1ecbe1;
+	border-radius: 10px;
+	padding: 5px 25px;
+	border:1px solid #1ecbe1;
+}
+.forget-form-button:hover{
+	background-color: #1dc4da;
+}
+  /*-------------------------- veirfy page-----------------------*/
+  .veirfy-form{
+  			display: inline-block;
+  			position: relative;
+  			width: 35%; 
+  			background-color: #f8f8f8;
+  			margin-top: 80px;
+  			margin-left: 250px;
+  		}
+  		.verify-img{
+  		display: inline-block;
+  			position: absolute;	 
+  			width: 28.5%;
+  			margin-top: 80px;
+  		
+  		}
+  		.veirfy-form i{
+  			font-size: 100px;
+  			margin-left: 220px;
+  			margin-top: 60px;
+  		}
+  		.veirfy-form-h1{
+  			text-align: center;
+  			font-size: 40px;
+  			padding-bottom: 10px;
+  		}
+  		.veirfy-form-h4{
+  			text-align: center;
+  			
+  		}
+  		.veirfy-form input[type=text]{
+  			width: 10%;
+  			padding: 10px 15px;
+  			border-radius: 35px;
+  			margin-left: 10px;
+  			border: 1px solid #1ecbe1;
+  		}
+  		.verify-form-button{
+  			margin: 15px;
+			text-align: center;
+			margin-left: 370px;
+			margin-top: 30px;
+			color: white;
+			background-color: #1ecbe1;
+			border-radius: 30px;
+			padding: 15px 25px;
+			border:1px solid #1ecbe1;
+			margin-bottom: 30px;
+  		}
+  		/*-----------------------------reset page-----------*/
+  			.reset-img{
+    		display: inline-block;
+  			position: relative;	 
+  			width: 28.6%;
+  			margin-top: 80px;
+  			margin-left: 250px;
+  			
+    	}
+    	.reset-form{
+    		display: inline-block;
+  			position: absolute;
+  			width: 35%; 
+  			background-color: #f8f8f8;
+  			margin-top: 80px;
+  			padding-bottom: 50px;
+    	}
+    	.reset-form-h1{
+    		text-align: center;
+  			font-size: 40px;
+  			padding-bottom: 10px;
+  			padding-top: 50px;
+    	}
+    	.reset-form-h4{
+  			text-align: center;
+  			
+  		}
+  		.reset-form input[type=password]{
+  			margin-top: 20px;
+    		padding: 10px;
+    		border:none;
+    		border-bottom: 1px solid #1ecbe1;
+    		width: 70%;
+    		margin-left: 80px;
+    		background-color: #f8f8f8;
+
+  		}
+      /*-------------------------------reset sucssful-------------------*/
+      .reset-form i{
+        font-size: 80px;
+        margin-left: 230px;
+        margin-top: 44px;
+    }
+    .reset-form-button{
+         margin-top: 10px;
+      text-align: center;
+      margin-left: 340px;
+      color: white;
+      background-color: #1ecbe1;
+      border-radius: 30px;
+      padding: 15px 25px;
+      border:1px solid #1ecbe1;
+    }
+      /*-----------------------------edit account---------------------------*/
+      .edit-img{
+      display: inline-block;
+      position: absolute;
+      margin-top: 60px;
+      
+    }
+    .edit-form{
+    display: inline-block;
+      position: relative;
+      width: 30%;
+      background-color: #f8f8f8;
+      margin-top: 60px;
+      margin-left: 230px;
+    }
+    .edit-form img{
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+      margin-left: 180px;
+      margin-top: 20px;
+
+    }
+    .edit-form-h1{
+      text-align: center;
+      font-size: 40px;
+    }
+    .edit-form-h4{
+      text-align: center;
+    }
+    .edit-form-button{
+      margin: 10px;
+      text-align: center;
+      margin-left: 180px;
+      margin-top: 12px;
+      color: white;
+      background-color: #1ecbe1;
+      border-radius: 30px;
+      padding: 15px 25px;
+      border:1px solid #1ecbe1;
+      
+    }
+    /*-------------------------change pass -page------------------------*/
+         .change-pass-form{
+        display: inline-block;
+        position: absolute;
+        width: 35%; 
+        background-color: #f8f8f8;
+        margin-top: 80px;
+        
+      }
+      .change-pass-form input[type=password]{
+        margin-top: 12px;
+        padding: 10px;
+      border:none;
+      border-bottom: 1px solid #1ecbe1;
+      width: 70%;
+      margin-left: 80px;
+      background-color: #f8f8f8;
+
+      }
+      /*----------------------------hospital page & people-------------------------*/
+      .map-div{
+        width: 67%;
+        margin-top: 80px;
+        margin-left: 350px;
+        position: absolute;
+
+        
+      }
+      .map-div iframe{
+        border-radius: 40px;
+      }
+      .map-content-div{
+        background-color: white;
+        width: 40%;
+        padding: 10px;
+        border-radius: 20px ;
+        margin-left: 50px;
+        margin-top: 480px;
+        position: absolute;
+        
+      }
+      .map-content-div img {
+        width: 150px;
+        height: 150px;
+        border-radius: 80px;
+        display: inline-block;
+        position: relative;
+        margin-left: 10px;
+
+      }
+      .map-content-h{
+        display: inline-block;
+        position: absolute;
+        margin-left: 10px;
+        font-size: 10px;
+
+
+      }
+      /*------------------------------privacy page-----------------------*/
+      .switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.container-ul{
+  width: 60%;
+  margin-left: 200px;
+  margin-top: 60px;
+}
+.container-ul-li
+{
+  list-style-type: none;
+  background-color: #f8f8f8;
+  padding: 10px; 
+  border-radius: 25px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+}
+
+.container-ul-li i{
+  display: inline-block;
+  background-color: #2196F3;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 15px;
+}
+.container-ul-li h3{
+  display: inline-block;
+}
+.container-ul-li div{
+  display: inline-block;
+  
+}
+.container-ul-li div span{
+  padding-left: 40px;
+  color: #939397;
+
+}
+.container-ul-li .switch{
+  display: inline-block;
+  float: right;
+  margin: 20px;
+}
+/*-----------------------make me doc & nurse---------------------------*/
+.form1-control-file{
+      text-align: center;
+      
+    }
+    
+    .form1-control-file input[type="file"]{
+      margin-left: 300px;
+      border-radius: 10px;
+      padding: 5px 10px;
+    }
+    .form1-control{
+      padding: 30px;
+      width: 60%;
+      margin-left: 280px;
+      margin-top: 60px;
+      background-color: #f8f8f8;
+    }
+    .form1-control-h5{
+      font-size: 30px;
+    }
+    .form1-control-table{
+      margin-left: 100px;
+    }
+    .form1-control-span{
+      color: #1cbbd0;
+      padding: 10px;
+      font-size: 20px;
+    }
+    .form1-control-input{
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid #1cbbd0;
+      background-color: #f8f8f8;
+      margin-left: 50px;
+      
+    }
+    .form1-control-button{
+      border-radius: 15px;
+      padding: 10px 30px;
+      background-color: #1ecbe1;
+      color: white;
+      margin-left: 350px;
+      margin-top: 30px;
+      border:none;
+
+    }
+    .form1-control-button:hover{
+    background-color: #1dc4da;
+    }
+    /*----------------------------------change lang---------------------------------*/
+    .change-lang-div{
+        width: 40%;
+        background-color:  #f8f8f8;
+        padding: 80px 30px;
+        margin-left: 440px;
+        margin-top: 120px;
+      }
+      .change-lang-div h1{
+        font-size: 50px;
+        font-weight: bold;
+      }
+      .change-lang-div h1,h2,h4{
+        text-align: center;
+        padding: 10px;
+
+      }
+      .change-lang-div img{
+        width: 50px;
+        height: 50px;
+        border-radius: 30px;
+        margin-right: 20px;
+      }
+      .change-radio-div{
+        margin-left: 200px;
+        margin-top: 30px;
+      }
+      /*----------------------------- contact us page-----------------------------*/
+      .contact-form-div{
+       border-radius: 30px;
+      background-color: #f8f8f8;
+      width: 60%;
+      margin-top: 80px;
+      margin-left: 380px;
+      position: absolute;
+      display: inline-block;
+
+     }
+     .contact-form-div h1{
+      margin-left: 350px;
+      padding: 40px;
+      font-size: 50px;
+     }
+     .contact-form-div h3{
+       margin-left: 400px;
+       font-size: 20px;
+     }
+     .contact-form-div input{
+       margin-left: 400px;
+       width: 35%;
+       margin-top: 20px;
+       border:none;
+       border-bottom: 1px solid #1cbbd0;
+       background-color: #f8f8f8;
+       padding: 5px 10px;
+       margin-bottom: 20px;
+
+     }
+     .contact-form-div textarea{
+       margin-left: 400px;
+       width: 35%;
+       margin-top: 20px;
+       border: 1px solid #1cbbd0;
+       background-color: #f8f8f8;
+       padding: 5px 10px;
+       margin-bottom: 10px;
+       
+     }
+     .contact-form-div button{
+       border-radius: 25px;
+      padding: 10px 30px;
+      background-color: #1ecbe1;
+      color: white;
+      margin-left: 520px;
+      margin-top: 30px;
+      border:none;
+      margin-bottom: 20px;
+     }
+     .contact-info-div{
+      border-radius: 30px;
+      width: 30%;
+      background-color: #225c96;
+      color: white;
+      padding-bottom: 100px;
+      position: absolute;
+      display: inline-block;
+      margin-top: 140px;
+      margin-left: 230px;
+
+
+     }
+     .contact-info-div h1{
+      padding: 60px;
+      font-size: 40px;
+      text-align: center;
+     }
+     .contact-info-div li{
+      list-style-type: none;
+      padding: 10px;
+      margin: 10px;
+      font-family: cursive;
+      font-size: 20px;
+     }
+     .contact-info-div i{
+      font-size: 30px;
+     }
+/*----------------------------about us---------------------------*/
+ .about-contant-div{
+        width: 60%;
+        background-color:#f8f8f8;
+        margin-top: 80px;
+        margin-left: 280px;
+      }
+      .about-contant-div td{
+        padding: 15px;
+        text-align: center;
+      }
+      .about-contant-div h1{
+        text-align: center;
+        padding: 10px;
+      }
+      /*-----------------------------------view doc----------------------*/
+      .main-section{
+    margin-top: 50px;
+    margin-left: 70px;
+  }
+  .section1{
+    overflow-y: scroll;
+    height: 350px;
+    margin-bottom: 20px;
+  }
+  .section1-a{
+    display: inline-block;
+    padding: 10px;
+    margin-left:20px;
+    border-radius: 15px;
+    background-color: #e3e3e6; 
+    margin-bottom: 20px;
+    text-decoration: none;
+  }
+  .section1 h2{
+    text-align: left;
+    font-size: 40px;
+  }
+  .section1-div-h4{
+    
+    text-align: left;
+  }
+  .section1-div-h6{
+    color: #a4a4ac;
+    padding-left: 10px;
+  }
+  .section1-div-p{
+    color: #a4a4ac;
+    width: 150px;
+  }
+      /*--------------------------doctor page & nurse-----------------------------*/
+      .map-doc-div{
+      margin-left: 660px;
+        position: absolute;
+        display: inline-block;
+        margin-top: 100px;
+    }
+
+    .doc-content-div{
+      
+      width: 35%;
+        background-color: #f8f8f8;
+          position: relative;
+        display: inline-block;
+        margin-left: 120px;
+        margin-top: 100px;
+    }
+    .doc-content-div img{
+      width: 150px;
+      height: 150px;
+      border-radius: 70px;
+      display: inline-block;
+      position: relative;
+      margin: 20px;
+    }
+    .doc-content{
+      display: inline-block;
+      position: absolute;
+      padding: 20px;
+      font-size: 20px;
+    }
+    
+    .avalible-div{
+      
+      width: 50%;
+      border-radius: 30px;
+      margin-left: 50px;
+      margin-bottom: 10px;
+        background-color: #dbdbdb;
+
+
+    }
+    .avalible-div h6,span{
+      margin-left: 20px;
+      padding: 5px;
+    }
+    .fees-div{
+      
+      width: 50%;
+      border-radius: 30px;
+      margin-left: 50px;
+        background-color: #dbdbdb;
+       
+      
+    }
+    .fees-div h6,h5{
+      margin-left: 20px;
+      padding: 6.5px;
+    }
+    .fees-div h6 ,.avalible-div h6{
+        border-radius: 20px;
+        border:1px solid black;
+        margin-bottom: 20px;
+        width: 50%;
+        text-align: center;
+    }
+
+    

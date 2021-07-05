@@ -26,6 +26,7 @@ class DoctorFactory extends Factory
     {
 
         return [
+            'image' =>'1.png' ,
             'salary' => $this->faker->numberBetween(1500 , 5000) ,
             'services' => $this->faker->word ,
             'qualifications' => $this->faker->word,

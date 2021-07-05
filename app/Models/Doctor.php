@@ -10,8 +10,8 @@ class Doctor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'salary' , 'services'  , 'qualifications'  ,
-        'lang' , 'lat' ,'from' , 'to' ,'status','user_id','created_at' ,'updated_at'
+        'salary' , 'services'  , 'qualifications'  , 'image',
+        'lang' , 'lat' , 'address','from' , 'to' ,'review','status','user_id','created_at' ,'updated_at'
     ];
 
     public function user()
@@ -28,14 +28,16 @@ class Doctor extends Model
     public static function validDoc()
     {
         return[
-            'salary' => 'required|numeric',
+            'salary' => 'required',
             'services' => 'required',
             'qualifications' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'lang' => 'required',
             'lat' => 'required',
             'from' => 'required',
             'to' => 'required',
-            'user_id' => 'unique:users,id'
+            'user_id' => 'unique:users,id',
+            'address' =>'required',
         ];
     }
 }

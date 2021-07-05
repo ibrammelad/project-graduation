@@ -27,11 +27,8 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
     Route::post('verify-password', [\App\Http\Controllers\API\Regesiter\PasswordController::class , 'verify_pass']);
     //////////////////////    end       ////////////////////////////////////////
 
-<<<<<<< HEAD
     Route::post('update-password', [\App\Http\Controllers\API\Regesiter\updatePassword::class , 'updatePassword']);
 
-=======
->>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
 
     ///////////////////// logout /////////////////////
     Route::get('/logout' , [\App\Http\Controllers\API\Regesiter\LoginController::class , 'logout']);
@@ -42,12 +39,20 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
     Route::post('/showName',[\App\Http\Controllers\API\User\ManageUserController::class , 'showName']);
     Route::post('/showNearly',[\App\Http\Controllers\API\User\ManageUserController::class , 'showNearly']);
     Route::post('/HaveCovid19',[\App\Http\Controllers\API\User\ManageUserController::class , 'HaveCovid19']);
+    Route::post('/susbected19',[\App\Http\Controllers\API\User\ManageUserController::class , 'susbected19']);
+    Route::post('/symptoms19',[\App\Http\Controllers\API\User\ManageUserController::class , 'symptoms19']);
     Route::post('/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
+    Route::get('/allHelper',[\App\Http\Controllers\API\User\ManageUserController::class , 'allHelper']);
+    Route::get('/settings',[\App\Http\Controllers\API\User\ManageUserController::class , 'settings']);
     //////////////////////////////// end manage Controllers /////////////////////////
 
+    ///////////////////////////////////// fcmToken .////////////////////////////////////////////
+    Route::post('FCMToken', [\App\Http\Controllers\API\User\ManageUserController::class ,'postToken']);
+    ///////////////////////////////////// fcmToken .////////////////////////////////////////////
+
+
     ///////////////////////////////// store location of peoples //////////////////
-    Route::post('/saveLocation' , [\App\Http\Controllers\API\Location\PeopleLocationController::class , 'storeLocation']) ;
-    Route::post('/updateLocation/{id}' , [\App\Http\Controllers\API\Location\PeopleLocationController::class , 'updateLocation']) ;
+    Route::post('/updateLocation' , [\App\Http\Controllers\API\Location\PeopleLocationController::class , 'updateLocation']) ;
     ///////////////////////////////// end store location of peoples //////////////////
 
     /////////////////////// doctor Controller ///////////////////////////////
@@ -60,29 +65,24 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
 
 Route::group(['middleware'=>'auth:sanctum' ] , function () {
 
-<<<<<<< HEAD
     ///////////// ////////  user controllers  ///////////////////////
     Route::get('users' , [\App\Http\Controllers\API\User\UserController::class ,'index']);
     Route::post('users/modify' , [\App\Http\Controllers\API\User\UserController::class ,'update']);
-    Route::get('users/{id}' , [\App\Http\Controllers\API\User\UserController::class ,'show']);
-    Route::get('doctors', [\App\Http\Controllers\API\User\DoctorController::class,'allDoctors']);
-    Route::get('nurses', [\App\Http\Controllers\API\User\NurseController::class,'allNurses']);
+    Route::post('users/upLoadAvt' , [\App\Http\Controllers\API\User\UserController::class ,'upload']);
 
-    //////////////////////////// posts //////////////////////////////////////////////////
-=======
-///////////// ////////  user controllers  ///////////////////////
-    Route::get('users' , [\App\Http\Controllers\API\User\UserController::class ,'index']);
-    Route::post('users/{id}' , [\App\Http\Controllers\API\User\UserController::class ,'update']);
     Route::get('users/{id}' , [\App\Http\Controllers\API\User\UserController::class ,'show']);
     Route::get('doctors', [\App\Http\Controllers\API\User\DoctorController::class,'allDoctors']);
     Route::get('nurses', [\App\Http\Controllers\API\User\NurseController::class,'allNurses']);
->>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
+    ///////////// ////////  end user controllers  ///////////////////////
+
+
+
+
+    /////////////////////////// posts ////////////////////////////////////////////////////
     Route::get('posts' , [\App\Http\Controllers\API\Post\PostController::class ,'index']);
-    Route::get('posts/{id}' , [\App\Http\Controllers\API\Post\PostController::class ,'show']);
     Route::post('posts/' , [\App\Http\Controllers\API\Post\PostController::class ,'store']);
     Route::post('posts/{id}' , [\App\Http\Controllers\API\Post\PostController::class ,'update']);
     Route::post('posts/{id}/delete' , [\App\Http\Controllers\API\Post\PostController::class ,'destroy']);
-<<<<<<< HEAD
     /////////////////////////////////////// end posts ///////////////////////////////////////////////
 
     /////////////////////////////////////// change password ///////////////////////////////////////////////
@@ -90,15 +90,31 @@ Route::group(['middleware'=>'auth:sanctum' ] , function () {
     /////////////////////////////////////// change password ///////////////////////////////////////////////
 
     /////////////////////////////////////// comments ///////////////////////////////////////////////
-    Route::get('comments/{id}' , [\App\Http\Controllers\API\Post\CommentController::class ,'show']);
+    Route::get('posts/{post}/comments' , [\App\Http\Controllers\API\Post\CommentController::class ,'showAllComment']);
     Route::post('comments/' , [\App\Http\Controllers\API\Post\CommentController::class ,'store']);
     Route::post('comments/{id}' , [\App\Http\Controllers\API\Post\CommentController::class ,'update']);
-    Route::post('comments/{id}/delete' , [\App\Http\Controllers\API\Post\CommentController::class ,'destroy']);///////////////////////// end user controller /////////////////////////////
+    Route::post('comments/{id}/delete' , [\App\Http\Controllers\API\Post\CommentController::class ,'destroy']);
     ///////////////////////////////////////end comments ///////////////////////////////////////////////
 
-=======
-    Route::post('changePass',[\App\Http\Controllers\API\Regesiter\PasswordController::class , 'changePass']);
+    /////////////////////////////////////// comments ///////////////////////////////////////////////
+    Route::post('likes/' , [\App\Http\Controllers\API\Post\LikeController::class ,'like']);
+    Route::post('dislikes/' , [\App\Http\Controllers\API\Post\LikeController::class ,'dislike']);
+    Route::get('posts/{id}/islikedbyme', [\App\Http\Controllers\API\Post\LikeController::class,'isLikedByMe']);
+    /////////////////////////////////////// end comments ////////////////////////////////////////////////
 
-///////////////////////// end user controller /////////////////////////////
->>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
+    /// ////////////////////////////////////// saved ///////////////////////////////////////////////
+    Route::post('saved/{id}/delete' , [\App\Http\Controllers\API\Post\SavedController::class ,'destroy']);
+    Route::post('posts/{id}/savePost/' , [\App\Http\Controllers\API\Post\SavedController::class ,'savePost']);
+    Route::get('mySavedPosts', [\App\Http\Controllers\API\Post\SavedController::class,'mySaved']);
+    /////////////////////////////////////// end saved ///////////////////////////////////////////////
+
+    /// ////////////////////////////////////// Hospital ///////////////////////////////////////////////
+    Route::get('hospitals', [\App\Http\Controllers\API\Hospital\HospitalController::class,'allHospitals']);
+    /// //////////////////////////////////////end Hospital ///////////////////////////////////////////////
+
+    ///////////////////////////////////////////// get notifications //////////////////////////////////////////
+    Route::get('/notifications', [\App\Http\Controllers\API\Notification\NotificationController::class,'allNotification']);
+
+
+
 });

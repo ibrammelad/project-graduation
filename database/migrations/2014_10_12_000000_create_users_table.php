@@ -20,10 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('token')->nullable()->unique();
-<<<<<<< HEAD
             $table->string('FCMToken')->nullable()->unique();
-=======
->>>>>>> a1e024c81ec4842abde9f28a6ceed308c4d4f47c
             $table->tinyInteger('status')->default(0);
             $table->string('code')->nullable();
             $table->string('image')->nullable();
@@ -31,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('showName')->default(1);
             $table->tinyInteger('showNearly')->default(1);
             $table->tinyInteger('HaveCovid19')->default(0);
+            $table->tinyInteger('susbected19')->default(0);
+            $table->tinyInteger('symptoms19')->default(0);
             $table->tinyInteger('HelpUsers')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

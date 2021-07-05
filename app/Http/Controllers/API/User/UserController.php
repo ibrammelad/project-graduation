@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -59,19 +58,39 @@ class UserController extends Controller
                 $user->fill($request->all());
                 $user->update();
             }
-            $ids= auth()->user()->id;
-            $token=PersonalAccessToken::where('tokenable_id', $ids)->get();
-            $r = ! Hash::check($token->first()->token);
-            return response()->json($r->get());
+
+            $auth = auth()->user();
+            return $this->showOne($auth);
 
         }
         catch (\Exception $e)
         {
-            return $e->getMessage();
             return $this->errorResponse(["message"=>'some error occur' ,"status"=> 404], 404);
         }
     }
 
+    public function upload(Request $request)
+    {
+        $rules = [
+            'image' => 'required|image|mimes:jpeg,png,jpg'
+        ];
+        $this->validate($request , $rules);
+        $user = auth()->user();
+        if ($user->image != null)
+        {
+            $image = $user->image;
+            $image = public_path('images/'.$image);  // get the path of basic app
+            unlink($image);              // delete photo from directory
+        }
+        $image = $request->file('image');
+        $new_name = $image->getClientOriginalName();
+        $input['image'] = $new_name;
+         $user->update($input);
+         $image->move(public_path("images"), $new_name);
+
+         return response()->json(['message' => "update_message" ,'data' => $user->image, 'status' => 200] , 200);
+
+    }
 
     public function sendSmsToMobile($user)
     {

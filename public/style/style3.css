@@ -1,0 +1,190 @@
+  body{
+      background-image: url("/imges/coronavirus.jpg");
+      
+    }
+ 
+ /*-------------------------------main page---------------------------------*/
+.container-li1{
+    
+    list-style-type: none;
+    color: black;
+    background-color: white;
+    width: 4%;
+    padding:10px 20px;
+    margin-top: 80px;
+    border-radius:20px;
+    margin-left: 40px;
+    display: inline-block;
+
+  }
+  .main-section-div1{
+    border:1px solid black;
+    width: 30%;
+  }
+  .div-container1{
+    border-style: outset;
+    border-top: none;
+    border-left: none;
+    width: 60%;
+    padding: 10px;
+    margin: 20px;
+    margin-left: 330px;
+
+  }
+  .div-container1-uimg{
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+    border-radius: 50px;
+
+
+  }
+  .div-container1-h3{
+    display:inline-block;
+    position: absolute;
+    margin-left: 10px;
+    font-family: cursive;
+
+  }
+  .div-container1-p{
+    width: 80%;
+    padding-left: 100px;
+
+  }
+  .div-container1-img{
+    margin-left: 100px;
+  }
+  .div-container1-ul{
+    list-style-type: none;
+    padding-top: 20px;
+
+  }
+  .div-container1-ul a{
+    color: black;
+  }
+  .div-container1-ul li{
+    display: inline-block;
+    padding-top: 5px;
+    font-size: 20px;
+    padding-right: 80px;
+  }
+  .div-input .div-container1-input{
+    width: 60%;
+    padding: 10px;
+    border-radius: 15px;
+    border:none;
+    margin-left: 100px;
+  }
+  .div-input .div-container1-i{
+    padding: 15px;
+    border-radius: 30px;
+    background-color:gray;
+    margin-left: 20px;
+    color: white;
+  }
+  /*-----------------------------notification------------------------*/
+  .notifi-box {
+  width: 300px;
+  height: 0px;
+  opacity: 0;
+  position: absolute;
+  background-color: white;
+  top: 63px;
+  left: 35px;
+  transition: 1s opacity, 250ms height;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.notifi-box h2 {
+  font-size: 14px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  color: #999;
+}
+.notifi-box h2 span {
+  color: #f00;
+}
+.notifi-item {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 10px 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.notifi-item:hover {
+  background-color: #eee;
+}
+.notifi-item img {
+  display: block;
+  width: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.notifi-item .text h4 {
+  color: #777;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.notifi-item .text p {
+  color: #aaa;
+  font-size: 12px;
+}
+/*-----------------------------------notification1--------*/
+.notification-section img{
+    position: relative;
+    display: inline-block;
+    margin-top: 70px;
+    margin-left: 170px;
+  }
+  .notification-div-info{
+  padding: 20px;
+  width: 40%;
+  position: absolute;
+  display: inline-block;
+  margin-top: 70px;
+  background-color: #efefef;
+  padding-left: 10px;
+  }
+  /*---------------------------add post ------------------------*/
+  .post-section img{
+    display: inline-block;
+    position: relative;
+
+  }
+  .add-post{
+    
+    width: 36%;
+    margin-top: 130px;
+    padding: 10px;
+    background-color: #f3f4f4;
+    position: absolute;
+    display: inline-block;
+    padding-bottom: 50px;
+
+  }
+  .add-post img{
+    border-radius: 50px;
+    display: inline-block;
+    position: relative;
+  }
+  .add-post h1{
+    position: absolute;
+    display: inline-block;
+    padding-left: 10px;
+  }
+  .add-post textarea{
+    width: 100%;
+    border:none;
+    background-color: #f3f4f4;
+    padding-left: 20px;
+    padding-top: 23px;
+  }
+  .add-post ul{
+    margin-left: 50px;
+  }
+  .add-post ul a li{
+    display: inline-block;
+    font-size: 30px;
+    margin-right:80px;
+    color: black;
+
+  }

@@ -20,8 +20,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone','token','code','status','image',
-        'showMail','showName','showNearly','HaveCovid19','HelpUsers',
+        'name', 'email' ,'password','phone','token','code','status','image',
+        'showMail','showName','showNearly','susbected19','symptoms19','HaveCovid19','HelpUsers','FCMToken',
         'created_at',	'updated_at'
     ];
 
@@ -77,4 +77,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function SavePosts()
+    {
+        return $this->hasMany(Post::class);
+
+    }
+
+    public function scopeActiveHelp($query)
+    {
+        return $this->where('HelpUsers' , 1 ) ;
+    }
+
 }

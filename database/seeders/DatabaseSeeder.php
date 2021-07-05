@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,10 +22,14 @@ class DatabaseSeeder extends Seeder
             NurseSeeder::class,
             LocationPersonSeeder::class,
             LocationPersonInteractSeeder::class,
-            RateSeeder::class,
+            //RateSeeder::class,
             HospitalSeeder::class,
             PostSeeder::class,
-            CommentSeeder::class
+            CommentSeeder::class,
+           // LikeSeeder::class,
+            SavedSeeder::class,
+            AdminSeeder::class,
+
         ]);
     }
 }
