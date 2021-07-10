@@ -22,16 +22,15 @@ class LocationPersonFactory extends Factory
      */
     public function definition()
     {
-        $lang = 31.2357;
-        $long = -84.3880;
+
         return [
             'user_id' => function(){
                 return User::all()->random();
             },
 //            'lang'=> $this->faker->latitude($min = ($lang-mt_rand(0,20)), $max = ($lang+mt_rand(0,20))),
 //            'lat' =>$this->faker->longitude($min = ($long-mt_rand(0,20)), $max = ($long+mt_rand(0,20))),
-            'lang'=> $this->faker->latitude(30.753989, 31.2357),
-            'lat' =>$this->faker->longitude(28.091889, 30.0444),
+            'lat'=> $this->faker->randomNumber(28.0911546, 28.0911586),
+            'lang' =>$this->faker->randomNumber(30.7475922, 30.7475983),
         ];
     }
 }

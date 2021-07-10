@@ -20,7 +20,7 @@ class CreateLocationPeopleTable extends Migration
             $table->string('address') ->nullable();
             $table->foreignId('user_id')->unique();
             $table->timestamps();
-            $table->foreign('user_id')->on('users')->references('id');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

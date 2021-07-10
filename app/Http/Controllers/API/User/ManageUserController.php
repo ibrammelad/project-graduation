@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\LocationPersonInteract;
+use App\Models\Notification;
 use App\Models\OrderCorona;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -52,17 +54,13 @@ class ManageUserController extends Controller
     }
     public function HaveCovid19(Request $request)
     {
-        $rules = [
-            'image_cro' => 'required|image|mimes:jpeg,png,jpg',
 
-        ];
         $id = auth()->user()->id;
 
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
-        $this->validate($request, $rules);
-        $this->validate($request, $rules);
+
 
         if ($request->file('image_cro')) {
             $image = $request->file('image_cro');
@@ -74,30 +72,27 @@ class ManageUserController extends Controller
         $input['user_id'] = $id;
         if($request->image_cro != null) {
             $data = OrderCorona::create($input);
-            return $this->showOne($data,200);
+            return response()->json(["data"=>$data , "status" => 200 , "message" => "your request send to admins"] , 200);
 
         }
         else
         {
-            auth()->user()->update([
+             auth()->user()->update([
                 'HaveCovid19' => 0 ,
             ]);
         }
 
         $data = auth()->user();
-        return $this->showOne($data,200);
+        return response()->json(["data"=>$data , "status" => 200 , "message" => "your request send to admins"] , 200);
     }
     public function susbected19(Request $request)
     {
-        $rules = [
-            'image_susb' => 'image|mimes:jpeg,png,jpg',
-        ];
+
         $id = auth()->user()->id;
 
         if (User::assurence($id)->first() == null)
             return $this->errorResponse('unauthenticated you try to modify another user you do not have permission ', 404);
 
-        $this->validate($request, $rules);
 
             if ($request->file('image_susb')) {
                 $image = $request->file('image_susb');
@@ -109,7 +104,7 @@ class ManageUserController extends Controller
         $input['user_id'] = $id;
         if($request->image_susb != null) {
             $data = OrderCorona::create($input);
-            return $this->showOne($data,200);
+            return response()->json(["data"=>$data , "status" => 200 , "message" => "your request send to admins"] , 200);
 
         }
         else
@@ -120,7 +115,7 @@ class ManageUserController extends Controller
         }
 
         $data = auth()->user();
-        return $this->showOne($data,200);
+        return response()->json(["data"=>$data , "status" => 200 , "message" => "your request send to admins"] , 200);
 
     }
     public function symptoms19(Request $request)
@@ -136,6 +131,32 @@ class ManageUserController extends Controller
 
         $this->validate($request, $rules);
         $user = User::findOrFail($id);
+        $allInteract = LocationPersonInteract::where('user_1', $user->id)->orWhere('user_2', $user->id)->get();
+        $persons = [];
+        foreach($allInteract as $index => $interactor) {
+            $persons[$index] = User::where('id', $interactor->user_1)->orWhere('id', $interactor->user_2)->get();
+        }
+        $persons= collect($persons);
+        $persons = $persons->collapse()->unique('id')->values();
+        $i = 0;
+        $persons = $persons->reject($user);
+        foreach($persons as $person)
+        {
+            if ($user->showName == 1)
+            {
+                $name = $user->name;
+            }else
+                $name = "x";
+            $message = "Sorry to tell you have interact with". $name."he has a symptoms of covid19 now ";
+            $this->push_notification_android($person->FCMToken, $message);
+
+            Notification::create([
+                'lang'=>  $allInteract[$i]->lang,
+                'lat'=>  $allInteract[$i]->lat,
+                'time_interaction' => $allInteract[$i]->created_at,
+                'user_id' => $person->id,
+            ]);
+        }
         $user->update(['symptoms19' => $request->symptoms19]);
         return $this->showOne($user ,200);
     }
@@ -175,7 +196,6 @@ class ManageUserController extends Controller
 
         return response()->json(['status' => 200] , 200);
     }
-
     public function settings()
     {
         $user = auth()->user();
@@ -232,4 +252,57 @@ class ManageUserController extends Controller
 
         return response()->json(['data' => $data , 'status' => 200],200);
     }
+    public function nearlyPeoples()
+    {
+        $users = User::where('HaveCovid19' , 1)
+            ->orWhere('susbected19' , 1)
+            -> orWhere('symptoms19' , 1)
+            ->with('location')->get();
+        return response()->json(['data' =>$users , "status" =>200] , 200);
+    }
+
+    public function push_notification_android($device_id,$message){
+
+        //API URL of FCM
+        $url = 'https://fcm.googleapis.com/fcm/send';
+
+        /*api_key available in:
+        Firebase Console -> Project Settings -> CLOUD MESSAGING -> Server key*/
+        $api_key = 'AAAAbGUTi2E:APA91bGcQ6Ikeni02tRP9--VW9O2B3iNowiAfe0TK9bGgXNkubj9MLztBzVbMxGvgo8F4kAN9MtZ_J6rPCpg_YoaGSnOEEBGIDubtNQEM3bh9im3bOQ3_4nHNbkgN-nxXEKrNiAGsW__';
+
+        $fields = array (
+            'registration_ids' => array (
+                $device_id
+            ),
+            'notification' => array (
+                "title"=> "hasb",
+                "body" => $message
+            ),
+            'data' => array (
+                "type"=> "notification",
+            )
+        );
+
+        //header includes Content type and api key
+        $headers = array(
+            'Content-Type:application/json',
+            'Authorization:key='.$api_key
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+            die('FCM Send Error: ' . curl_error($ch));
+        }
+        curl_close($ch);
+        return $result;
+    }
+
 }

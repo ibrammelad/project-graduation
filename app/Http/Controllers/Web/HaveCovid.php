@@ -23,15 +23,43 @@ class HaveCovid extends Controller
     {
         $order = OrderCorona::findOrFail($id);
         $user =  $order->user ;
+        $allInteract = LocationPersonInteract::where('user_1', $user->id)->orWhere('user_2', $user->id)->get();
+        $persons = [];
+        foreach($allInteract as $index => $interactor) {
+            $persons[$index] = User::where('id', $interactor->user_1)->orWhere('id', $interactor->user_2)->get();
+        }
+        $persons= collect($persons);
+        $persons = $persons->collapse()->unique('id')->values();
+        $persons = $persons->reject($user);
+        $i = 0;
+        foreach($persons as $person)
+        {
+            if ($user->showName == 1)
+            {
+                $name = $user->name;
+            }else
+                $name = "x";
+            $message = "soory to tell you have interact with ". $name." he has a covid19 now ";
+// return $person->FCMToken;
+            $this->push_notification_android($person->FCMToken, $message);
+
+            Notification::create([
+                'lang'=>  $allInteract[$i]->lang,
+                'lat'=>  $allInteract[$i]->lat,
+                'time_interaction' => $allInteract[$i]->created_at,
+                'user_id' => $person->id,
+            ]);
+        }
+
         $user->update([
             'HaveCovid19' => 1 ,
         ]);
-        if($order->image_cro != null)
-        {
-            $image = $order->image_cro;
-            $image = public_path('images/'.$image);  // get the path of basic app
-            unlink($image);              // delete photo from directory
-        }
+//        if($order->image_cro != null)
+//        {
+//            $image = $order->image_cro;
+//            $image = public_path('images/'.$image);  // get the path of basic app
+//            unlink($image);              // delete photo from directory
+//        }
         $order->delete();
         return back()->with(['success' => "notification has been pushed"]);
     }
@@ -58,48 +86,49 @@ class HaveCovid extends Controller
     public function acceptSusb($id)
     {
         try {
-        DB::beginTransaction();
-        $order = OrderCorona::findOrFail($id);
-        $user = $order->user;
-        $allInteract = LocationPersonInteract::where('user_1', $user->id)->orWhere('user_2', $user->id)->get();
-        $persons = [];
-        foreach($allInteract as $index => $interactor) {
-            $persons[$index] = User::where('id', $interactor->user_1)->orWhere('id', $interactor->user_2)->get();
-        }
-        $persons= collect($persons);
-        $persons = $persons->collapse()->unique('id')->values();
-        $i = 0;
-        foreach($persons as $person)
-         {
-             if ($person->showName == 1)
-             {
-                 $name = $person->name;
-             }else
-                 $name = "x";
-             $message = "soory to tell you have interact with". $name."he has a susbected of covid19 now ";
-             $this->push_notification_android($person->FCMToken, $message);
+            DB::beginTransaction();
+            $order = OrderCorona::findOrFail($id);
+            $user = $order->user;
+            $allInteract = LocationPersonInteract::where('user_1', $user->id)->orWhere('user_2', $user->id)->get();
+            $persons = [];
+            foreach($allInteract as $index => $interactor) {
+                $persons[$index] = User::where('id', $interactor->user_1)->orWhere('id', $interactor->user_2)->get();
+            }
+            $persons= collect($persons);
+            $persons = $persons->collapse()->unique('id')->values();
+            $i = 0;
+            $persons = $persons->reject($user);
+            foreach($persons as $person)
+            {
+                if ($user->showName == 1)
+                {
+                    $name = $user->name;
+                }else
+                    $name = "x";
+                $message = "Sorry to tell you have interact with". $name."he has a susbected of covid19 now ";
+                $this->push_notification_android($person->FCMToken, $message);
 
-             Notification::create([
-                 'lang'=>  $allInteract[$i]->lang,
-                 'lat'=>  $allInteract[$i]->lat,
-                 'time_interaction' => $allInteract[$i]->created_at,
-                 'user_id' => $user->id,
-             ]);
-         }
+                Notification::create([
+                    'lang'=>  $allInteract[$i]->lang,
+                    'lat'=>  $allInteract[$i]->lat,
+                    'time_interaction' => $allInteract[$i]->created_at,
+                    'user_id' => $person->id,
+                ]);
+            }
 
-        $user->update([
-            'susbected19' => 1 ,
-        ]);
-        if ($order->image_susb != null)
-        {
-            $image = $order->image_susb;
-            $image = public_path('images/'.$image);  // get the path of basic app
-            unlink($image);              // delete photo from directory
-        }
-        $order->delete();
-        DB::commit();
-        return back()->with(['success' => "notification has been pushed"]);
-    }catch (\Exception $exception)
+            $user->update([
+                'susbected19' => 1 ,
+            ]);
+//        if ($order->image_susb != null)
+//        {
+//            $image = $order->image_susb;
+//            $image = public_path('images/'.$image);  // get the path of basic app
+//            unlink($image);              // delete photo from directory
+//        }
+            $order->delete();
+            DB::commit();
+            return back()->with(['success' => "notification has been pushed"]);
+        }catch (\Exception $exception)
         {
             return $exception->getMessage();
             return back()->with(['success' => "notification has been pushed"]);
@@ -123,7 +152,6 @@ class HaveCovid extends Controller
 
 
 
-
     public function push_notification_android($device_id,$message){
 
         //API URL of FCM
@@ -137,8 +165,12 @@ class HaveCovid extends Controller
             'registration_ids' => array (
                 $device_id
             ),
+            'notification' => array (
+                "title"=> "hasb",
+                "body" => $message
+            ),
             'data' => array (
-                "message" => $message
+                "type"=> "notification",
             )
         );
 
@@ -163,5 +195,8 @@ class HaveCovid extends Controller
         curl_close($ch);
         return $result;
     }
+
+
+
 
 }

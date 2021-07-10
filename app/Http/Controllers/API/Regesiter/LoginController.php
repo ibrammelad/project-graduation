@@ -25,7 +25,7 @@ class LoginController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 404);
+                return response()->json(["message" =>$validator->errors() , "status" => 400], 404);
             }
 
             DB::beginTransaction();
@@ -34,11 +34,11 @@ class LoginController extends Controller
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);
             DB::commit();
-            $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)) {
+
+            if ($user || Hash::check($request->password, $user->password)) {
                 $this->sendSmsToMobile($user);
             }
-            $user = \auth()->user();
+            $user = User::where('name' , $request->name)->first();
             $user['tokenKey'] = $user->createToken($user->name)->plainTextToken;
 
             return $this->showOne($user , 202);
@@ -118,7 +118,7 @@ class LoginController extends Controller
         $code= rand('1000' , '9999');
         $user->update([
             'code' => $code]);
-        $basic  = new \Vonage\Client\Credentials\Basic("abfc9078", "EqgqIwFt21UKweqm");
+        $basic  = new \Vonage\Client\Credentials\Basic("f6a4f8cd", "2flD6TCgTFYzv8Yt");
         $client = new \Vonage\Client($basic);
         $response = $client->sms()->send(
             new \Vonage\SMS\Message\SMS("2".$user->phone, '7asb', 'Verification Code : '.$code)

@@ -10,7 +10,7 @@ class NotificationController extends Controller
 {
     public function allNotification()
     {
-        $not = Notification::with('user')->simplePaginate(15);
+        $not = Notification::where('user_id', auth()->user()->id)->with('user')->simplePaginate(15);
 
         return response()->json([$not] , 200 );
 

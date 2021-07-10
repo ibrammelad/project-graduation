@@ -26,7 +26,7 @@ class PasswordController extends Controller
             return $this->errorResponse( "this phone do'nt have account",  404);
         }
 
-        // $this->sendSmsToMobile($user);
+         $this->sendSmsToMobile($user);
         $user['tokenKey'] = $user->createToken($user->name)->plainTextToken;
 
         return response()->json(["data" =>$user , "status"=> 200 ] , 200);
@@ -81,20 +81,12 @@ class PasswordController extends Controller
 
 
 
-
-
-
-
-
-
-
-
     public function sendSmsToMobile($user)
     {
         $code= rand('1000' , '9999');
         $user->update([
             'code' => $code]);
-        $basic  = new \Vonage\Client\Credentials\Basic("abfc9078", "EqgqIwFt21UKweqm");
+        $basic  = new \Vonage\Client\Credentials\Basic("f6a4f8cd", "2flD6TCgTFYzv8Yt");
         $client = new \Vonage\Client($basic);
         $response = $client->sms()->send(
             new \Vonage\SMS\Message\SMS("2".$user->phone, '7asb', 'Verification Code : '.$code)
@@ -103,5 +95,12 @@ class PasswordController extends Controller
         return $code;
 
     }
+
+
+
+
+
+
+
 
 }

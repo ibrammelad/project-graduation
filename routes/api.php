@@ -44,6 +44,7 @@ Route::group(['middleware'=>'auth:sanctum' , 'prefix' => 'users'] , function (){
     Route::post('/HelpUsers',[\App\Http\Controllers\API\User\ManageUserController::class , 'HelpUsers']);
     Route::get('/allHelper',[\App\Http\Controllers\API\User\ManageUserController::class , 'allHelper']);
     Route::get('/settings',[\App\Http\Controllers\API\User\ManageUserController::class , 'settings']);
+    Route::get('/nearlyPeoples',[\App\Http\Controllers\API\User\ManageUserController::class , 'nearlyPeoples']);
     //////////////////////////////// end manage Controllers /////////////////////////
 
     ///////////////////////////////////// fcmToken .////////////////////////////////////////////

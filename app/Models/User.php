@@ -73,6 +73,11 @@ class User extends Authenticatable
         return $this->hasOne(Nurse::class);
     }
 
+    public function location()
+    {
+        return $this->hasOne(LocationPerson::class);
+    }
+
     public function post()
     {
         return $this->hasMany(Post::class);

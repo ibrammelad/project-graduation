@@ -18,16 +18,16 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            DoctorSeeder::class,
-            NurseSeeder::class,
-            LocationPersonSeeder::class,
-            LocationPersonInteractSeeder::class,
+//            DoctorSeeder::class,
+//            NurseSeeder::class,
+           // LocationPersonSeeder::class,
+//            LocationPersonInteractSeeder::class,
             //RateSeeder::class,
-            HospitalSeeder::class,
-            PostSeeder::class,
-            CommentSeeder::class,
-           // LikeSeeder::class,
-            SavedSeeder::class,
+//            HospitalSeeder::class,
+//            PostSeeder::class,
+//            CommentSeeder::class,
+//           // LikeSeeder::class,
+//            SavedSeeder::class,
             AdminSeeder::class,
 
         ]);

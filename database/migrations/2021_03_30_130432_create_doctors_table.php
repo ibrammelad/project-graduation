@@ -27,7 +27,7 @@ class CreateDoctorsTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('review')->default(1);
             $table->unsignedBigInteger('user_id')->unique();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

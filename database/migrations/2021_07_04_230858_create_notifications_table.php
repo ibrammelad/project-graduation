@@ -19,7 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->double('lat');
             $table->string('time_interaction');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->on('users')->references('id');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
 
             $table->timestamps();
         });

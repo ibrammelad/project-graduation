@@ -35,10 +35,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // 123456
             'remember_token' => Str::random(10),
-            'status' => $this->faker->numberBetween(0,1),
-            'showMail' =>$this->faker->numberBetween(0,1),
-            'showName' =>$this->faker->numberBetween(0,1),
-            'showNearly' =>$this->faker->numberBetween(0,1),
 
 
         ];

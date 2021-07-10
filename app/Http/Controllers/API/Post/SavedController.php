@@ -24,7 +24,6 @@ class SavedController extends Controller
 
         }
 
-
         $res = $this->paginate(collect($res) , 15);
         return response()->json(['data' => $res ]  ,200);
     }
